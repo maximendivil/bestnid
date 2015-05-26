@@ -1,8 +1,22 @@
+    <script language="javascript" charset="ISO-8859-1">     
+            
+            function obtener_provincias(code){
+                var url = "consulta_provincias.php?code=" + code;
+                var provincias = $.ajax({
+                        url: url,
+                        type: 'GET'
+                    }).done(function(consulta){
+                        $("#provincia").empty().append(consulta);
+                    })
+
+            }
+    </script>
+    
 
     <?php include("header.php") ;
         session_start();
         $formValid = 1; 
-        $nameErr = $calleErr = $apellidoErr = $dniErr = $fechaNacErr = $departamentoErr = $emailErr = $passErr = $departamento = $nombre = $apellido = $calle = $pass = "";
+        $nameErr = $calleErr = $apellidoErr = $dniErr = $fechaNacErr = $paisErr = $pciaErr = $localidadErr = $departamentoErr = $emailErr = $passErr = $departamento = $nombre = $apellido = $calle = $pass = "";
         // define variables and set to empty values
         
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,10 +35,29 @@
                 $dniErr = "Excede el maximo de digitos";
             }
 
-            $fechaNac = test_input($_POST["fechaNac"]);
+            /*$fechaNac = test_input($_POST["fechaNac"]);
             if (!preg_match("/^[0-9\/]*$/",$fechaNac)) {
                 $formValid = 0;
                 $fechaNacErr = "Solo se permiten fechas con el formato: dd/mm/aaaa"; 
+            }
+            */
+            /*if ($_POST["pais"] == 0){
+                $formValid = 0;
+                $paisErr = "Debe seleccionar un país";
+            }
+
+            echo ""
+
+            if ($_POST["provincia"]==0){
+                $formValid = 0;
+                $pciaErr = "Debe seleccionar un país";
+            }
+            */       
+
+            $localidad = test_input($_POST["localidad"]);
+            if (!preg_match("/^[a-zA-Z ]*$/",$localidad)) {
+                $formValid = 0;
+                $localidadErr = "Solo se permiten letras y espacios"; 
             }
 
             $calle = test_input($_POST["calle"]);
@@ -64,6 +97,9 @@
                     $_SESSION["nombre"] = $_POST["nombre"];
                     $_SESSION["apellido"] = $_POST["apellido"];
                     $_SESSION["fechaNac"] = $_POST["fechaNac"];
+                    $_SESSION["localidad"] = $_POST["localidad"];
+                    $_SESSION["pais"] = $_POST["pais"];
+                    $_SESSION["provincia"] = $_POST["provincia"];
                     $_SESSION["dni"] = $_POST["dni"];
                     if ($_POST["sexo"] == 1){
                         $_SESSION["sexo"] = 'M';    
@@ -163,6 +199,49 @@
                         </div>
                     </div>
 
+
+                    <?php   // ----CONSULTA DE PAISES
+                        $dbc = @mysql_connect('localhost','root','');
+                        mysql_select_db('bestnid',$dbc);       
+                        $query_pais = "select * from pais";
+                        $result_query_pais = mysql_query($query_pais);       
+                    ?>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="pais">País *</label>  
+                        <div class="col-md-5">
+                            <?php
+                                echo "<select class='form-control'  id='pais' name='pais' required onchange='obtener_provincias(this.value)'>";
+                
+                                echo "<option value='0' selected='selected' > Elige uno</option>";
+                                while($fila = mysql_fetch_array($result_query_pais)){
+                                    echo "<option value='".$fila['code']."'>".$fila['nombre']."</option>";
+                                }
+                                echo "</select>";
+                            ?>
+                            <span class="advertencia"><?php echo $paisErr;?></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="pcia">Provincia *</label>  
+                        <div class="col-md-5">
+                            <?php
+                                echo "<select class='form-control'  id='provincia' name='provincia'>";
+                                echo"<option value='0' selected='selected'> Elige uno</option>";
+                                echo "</select>";
+                            ?>
+                            <span class="advertencia"><?php echo $pciaErr;?></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="localidad">Localidad *</label>  
+                        <div class="col-md-5">
+                            <input id="localidad" name="localidad" type="text" placeholder="Escribe tu localidad aqui. Por ej: La Plata" class="form-control input-md" value="<?php if (isset($_POST['localidad'])) echo $_POST['localidad']; ?>" required>
+                            <span class="advertencia"><?php echo $localidadErr;?></span>
+                        </div>
+                    </div>
+
                     <!-- Text input-->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="calle">Calle *</label>  
@@ -241,5 +320,13 @@
             </form>
         </div>
     </div>
+    <script type="text/javascript">
+        function validarPais(){
+            indice = document.getElementById("pais").selectedIndex;
+            if( indice == null || indice == 0 ) {
+                alert("Debe seleccionar un país");
+            }
+        }
+    </script>
 </body>
 </html>

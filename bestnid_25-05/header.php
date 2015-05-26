@@ -1,11 +1,14 @@
 <!DOCTYPE>
 <html lang="en">
 <head> 
-<meta charset="utf-8">
-<title>Bestnid</title>
-<link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="styles.css">
-<script src="libs/bootstrap.min.js" type="text/javascript"></script>
+	<meta charset="utf-8">
+	<title>Bestnid</title>
+	<link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<!-- <script src="js/jquery.min.js" type="text/javascript"></script> -->
+	<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+	<script src="libs/bootstrap.min.js" type="text/javascript"></script>
+	
 </head>
 
 <body>
@@ -19,10 +22,9 @@
 		                data-toggle="dropdown">Buscar por  <span class="caret"></span>
 		        </button>	 
 		        <ul class="dropdown-menu" role="menu">
-		          <li><a href="#">Acción #1</a></li>
-		          <li><a href="#">Acción #2</a></li>
-		          <li><a href="#">Acción #3</a></li>		          
-		          <li><a href="#">Acción #4</a></li>
+		          <li><a href="#">Título</a></li>
+		          <li><a href="#">Descripción</a></li>
+		          <li><a href="#">Categoría</a></li>
 		        </ul>
 		      </div>	 
 		      <input type="text" class="form-control">

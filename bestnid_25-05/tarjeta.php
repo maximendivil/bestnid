@@ -43,6 +43,9 @@
                     $apellido = $_SESSION["apellido"];
                     $fechaNac = $_SESSION["fechaNac"];
                     $dni = $_SESSION["dni"];
+                    $pais = $_SESSION["pais"];
+                    $provincia = $_SESSION["provincia"];
+                    $localidad = $_SESSION["localidad"];
                     $sexo = $_SESSION["sexo"];
                     $calle = $_SESSION["calle"];
                     $numCalle = $_SESSION["numCalle"];
@@ -82,7 +85,7 @@
                     }              
                     registrarUsuario($email,$password);
                     registrarTarjeta($numTarjeta,$codSeg,$empresa,$banco,$vencimiento,$nombreTitular,$apellidoTitular);
-                    registrar($email,$nombre,$apellido,$fechaNac,$dni,$sexo,$calle,$numCalle,$dpto,$piso,$numTarjeta);
+                    registrar($email,$nombre,$apellido,$fechaNac,$dni,$sexo,$calle,$numCalle,$dpto,$piso,$numTarjeta,$pais,$provincia,$localidad);
                     header("location: registrado.php");
                 }
                 else {
@@ -122,11 +125,14 @@
             mysql_close($link);
         }
 
-        function registrar($email,$nombre,$apellido,$fechaNac,$dni,$sexo,$calle,$numCalle,$dpto,$piso,$numTarjeta){
+        function registrar($email,$nombre,$apellido,$fechaNac,$dni,$sexo,$calle,$numCalle,$dpto,$piso,$numTarjeta,$pais,$provincia,$localidad){
             $link = mysql_connect('localhost','root') or die('No se pudo conectar: '.mysql_error());
             mysql_select_db('bestnid',$link) or die('No se pudo seleccionar la base de datos');
             $alta = date("y/m/d");
-            mysql_query("INSERT INTO registrado(email,nombre,apellido,dni,fechaNacimiento,fechaAlta,sexo,calle,numCalle,departamento,piso,tarjeta) VALUES ('$email','$nombre','$apellido','$dni','$fechaNac','$alta','$sexo','$calle','$numCalle','$dpto','$piso','$numTarjeta')") or die("Falló al registrar el usuario");
+            $result = mysql_query("SELECT pais_id FROM pais WHERE code='$pais'");
+            $fila = mysql_fetch_row($result);
+            $pais_id = $fila[0];
+            mysql_query("INSERT INTO registrado(email,nombre,apellido,dni,fechaNacimiento,fechaAlta,sexo,calle,numCalle,departamento,piso,tarjeta,paisID,provinciaID,localidad) VALUES ('$email','$nombre','$apellido','$dni','$fechaNac','$alta','$sexo','$calle','$numCalle','$dpto','$piso','$numTarjeta','$pais_id','$provincia','$localidad')") or die("Falló al registrar el usuario");
             mysql_close($link);
         }
 
