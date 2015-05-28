@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2015 a las 23:50:33
+-- Tiempo de generación: 28-05-2015 a las 17:20:53
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -59,6 +59,48 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 CREATE TABLE IF NOT EXISTS `categoria-publicacion` (
   `idPublicacion` int(10) NOT NULL,
   `idCategoria` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comentario`
+--
+
+CREATE TABLE IF NOT EXISTS `comentario` (
+`idComentario` int(4) NOT NULL,
+  `idPublicacion` int(4) NOT NULL,
+  `idRegistrado` varchar(50) NOT NULL,
+  `contenido` varchar(144) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `imagen`
+--
+
+CREATE TABLE IF NOT EXISTS `imagen` (
+`idImagen` int(4) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `idPublicacion` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `oferta`
+--
+
+CREATE TABLE IF NOT EXISTS `oferta` (
+`idOferta` int(3) NOT NULL,
+  `motivo` varchar(100) NOT NULL,
+  `monto` int(6) NOT NULL,
+  `fechaRealizacion` date NOT NULL,
+  `posibleGanadora` int(1) NOT NULL DEFAULT '0',
+  `ganadora` int(1) NOT NULL DEFAULT '0',
+  `idPublicacion` int(4) NOT NULL,
+  `idRegistrado` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -3916,7 +3958,25 @@ ALTER TABLE `categoria`
 -- Indices de la tabla `categoria-publicacion`
 --
 ALTER TABLE `categoria-publicacion`
- ADD UNIQUE KEY `numeroPublicacion` (`idPublicacion`,`idCategoria`), ADD KEY `idCategoria` (`idCategoria`);
+ ADD UNIQUE KEY `numeroPublicacion` (`idPublicacion`,`idCategoria`), ADD UNIQUE KEY `idPublicacion` (`idPublicacion`,`idCategoria`), ADD KEY `idCategoria` (`idCategoria`);
+
+--
+-- Indices de la tabla `comentario`
+--
+ALTER TABLE `comentario`
+ ADD PRIMARY KEY (`idComentario`), ADD UNIQUE KEY `idPublicacion` (`idPublicacion`,`idRegistrado`), ADD UNIQUE KEY `idRegistrado` (`idRegistrado`);
+
+--
+-- Indices de la tabla `imagen`
+--
+ALTER TABLE `imagen`
+ ADD PRIMARY KEY (`idImagen`), ADD UNIQUE KEY `idPublicacion` (`idPublicacion`);
+
+--
+-- Indices de la tabla `oferta`
+--
+ALTER TABLE `oferta`
+ ADD PRIMARY KEY (`idOferta`), ADD UNIQUE KEY `idPublicacion` (`idPublicacion`), ADD UNIQUE KEY `idRegistrado` (`idRegistrado`);
 
 --
 -- Indices de la tabla `pais`
@@ -3964,6 +4024,21 @@ ALTER TABLE `usuario`
 ALTER TABLE `categoria`
 MODIFY `idCategoria` int(10) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `comentario`
+--
+ALTER TABLE `comentario`
+MODIFY `idComentario` int(4) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `imagen`
+--
+ALTER TABLE `imagen`
+MODIFY `idImagen` int(4) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `oferta`
+--
+ALTER TABLE `oferta`
+MODIFY `idOferta` int(3) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `pais`
 --
 ALTER TABLE `pais`
@@ -3987,6 +4062,26 @@ MODIFY `numeroPublicacion` int(20) NOT NULL AUTO_INCREMENT;
 --
 ALTER TABLE `categoria-publicacion`
 ADD CONSTRAINT `categoria-publicacion_ibfk_1` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`);
+
+--
+-- Filtros para la tabla `comentario`
+--
+ALTER TABLE `comentario`
+ADD CONSTRAINT `comentario_ibfk_1` FOREIGN KEY (`idPublicacion`) REFERENCES `publicacion` (`numeroPublicacion`),
+ADD CONSTRAINT `comentario_ibfk_2` FOREIGN KEY (`idRegistrado`) REFERENCES `registrado` (`email`);
+
+--
+-- Filtros para la tabla `imagen`
+--
+ALTER TABLE `imagen`
+ADD CONSTRAINT `imagen_ibfk_1` FOREIGN KEY (`idPublicacion`) REFERENCES `publicacion` (`numeroPublicacion`);
+
+--
+-- Filtros para la tabla `oferta`
+--
+ALTER TABLE `oferta`
+ADD CONSTRAINT `oferta_ibfk_1` FOREIGN KEY (`idPublicacion`) REFERENCES `publicacion` (`numeroPublicacion`),
+ADD CONSTRAINT `oferta_ibfk_2` FOREIGN KEY (`idRegistrado`) REFERENCES `registrado` (`email`);
 
 --
 -- Filtros para la tabla `publicacion`

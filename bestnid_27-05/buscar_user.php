@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			break;
 		}
 		case "email": {
-			if (!ereg("^([a-zA-Z0-9._]+)@([a-zA-Z0-9.-]+).([a-zA-Z]{2,4})$",$busqueda)){ 
+			if (!(filter_var($busqueda, FILTER_VALIDATE_EMAIL))){ 
 				$formValid = 0;
 				$error = "El formato del email es invalido";
 			}

@@ -6,10 +6,10 @@ session_start();
             mysql_select_db('bestnid',$link) or die('No se pudo seleccionar la base de datos');
             mysql_query("UPDATE usuario SET tipo=-1 WHERE email='$email'") or die("Fallo la eliminacion de datos.");
             mysql_close($link);
-            echo "Cuenta eliminada exitosamente";
+            echo '<script language="javascript">alert("Tu cuenta fue dada de baja exitosamente");</script>';
          
 		 if($_SESSION['usuario'] == $email){
-			  header("refresh: 2 ; url = logout.php");
+			  header("refresh: 1 ; url = logout.php");
 		 }else if($_SESSION['tipouser'] == 1){
 			header("refresh: 2 ; url = indexPanel.php"); 
 		 }
