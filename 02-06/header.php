@@ -16,9 +16,9 @@
 	
 </head>
 
-<body style="background-color: #F5DEB3">
+<body>
 
-	<nav class="navbar navbar-default" role="navigation" style="background-color: #ec971f ; border: solid 2px black;">
+	<nav class="navbar navbar-default" role="navigation" >
 		<a style="padding-top:0em" class="navbar-brand" href="index.php"><img src="logo2.png" style="width: 100% ; height: 175% ; padding-left: 15%"></a>
 		<div class="col-lg-6" style="padding-top:1em ; padding-bottom:1em">
 		    <div class="input-group" style="padding-left:50%">
@@ -41,15 +41,15 @@
 		<?php		
 		if(isset($_SESSION['usuario'])){
 			echo	"<ul class='nav navbar-nav navbar-right' style='padding-top:0.5em ; padding-right: 2em'>";
-			echo 	"<li><a href='indexPanel.php'><span style='color: black ; font-weight: bold'>Mi cuenta</a></li>";
-			echo 	"<li><a href='publicar.php'><span style='color: black ; font-weight: bold'>Publicar</a></li>";
-			echo 	"<li><a href='logout.php'><span style='color: black ; font-weight: bold'>Cerrar sesion</a></li>";
+			echo 	"<li><a href='indexPanel.php'>Mi cuenta</a></li>";
+			echo 	"<li><a href='publicar.php'>Publicar</a></li>";
+			echo 	"<li><a href='logout.php'>Cerrar sesion</a></li>";
 			echo	"</ul>";
 		}
 		else {	
 			echo	"<ul class='nav navbar-nav navbar-right' style='padding-top:0.5em ; padding-right: 2em'>";
-			echo	"<li><a href='registrarse.php'><span style='color: black ; font-weight: bold'> Registrarse</a></li>";
-			echo	"<li><a href='login.php'><span style='color: black ; font-weight: bold'>Iniciar sesión</a></li>";
+			echo	"<li><a href='registrarse.php'>Registrarse</a></li>";
+			echo	"<li><a href='login.php'>Iniciar sesión</a></li>";
 			echo	"</ul>";
 		}
 		?>

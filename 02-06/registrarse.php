@@ -106,7 +106,7 @@
     ?>
     <div class="container">
         <div class="row">
-            <h1 class="text-center login-title" style="color: #ec971f">Registrarse</h1>
+            <h1 class="text-center login-title">Registrarse</h1>
             <form class="form-horizontal" style="padding-top: 2em" method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
                 <fieldset>
 
@@ -283,7 +283,7 @@
                     <br>
                     <em>Los campos marcados con * son obligatorios</em>
                     <br>
-                    <button class="btn btn-lg btn-warning center-block" style="padding-left: 15% ; padding-right: 15%" type="submit">Siguiente</button>                 
+                    <button class="btn btn-lg btn-primary center-block" style="padding-left: 15% ; padding-right: 15%" type="submit">Siguiente</button>                 
                 </fieldset> 
             </form>
         </div>

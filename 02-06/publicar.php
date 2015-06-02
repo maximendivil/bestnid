@@ -66,8 +66,8 @@
         
         <div class="form-group">
           <div class="col-lg-10 col-lg-offset-2">
-            <button type="reset" class="btn btn-default">Cancel</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="javascript:history.back()" style="text-decoration: none"><button type="button" class="btn btn-default">Cancelar</button></a>
+            <button type="submit" class="btn btn-primary">Enviar</button>
           </div>
         </div>
       </fieldset>

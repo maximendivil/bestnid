@@ -2,6 +2,7 @@
 session_start();
 include("header.php") ; 
 include("cpanel_menu.php");
+include("funciones.php");
 
 if(!isset($_SESSION['usuario'])){
     header("location: index.php");
@@ -15,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	//VALIDACION DE LA BUSQUEDA DEPENDE EL CRITERIO
 	switch($criterio){
-		case "dni": {
+		case 0: {
 			if (strlen($busqueda) > 8){
                 $formValid = 0;
                 $error = "El DNI excede los 8 digitos";
@@ -26,14 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			}
 			break;
 		}
-		case "email": {
+		case 1: {
 			if (!(filter_var($busqueda, FILTER_VALIDATE_EMAIL))){ 
 				$formValid = 0;
 				$error = "El formato del email es invalido";
 			}
 			break;
 		}
-		case "apellido": {
+		case 2: {
 			if (!preg_match("/^[a-zA-Z ]*$/",$busqueda)) {
                 $formValid = 0;
                 $error = "Solo se permiten letras y espacios"; 
@@ -52,9 +53,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<div class="col-sm-2"><h5>Buscar por:</h5></div>
 	<div class="col-sm-3">
 	<select class="form-control" id="criterio" name="criterio">
-        <option value='dni' selected='selected'>DNI</option>
-        <option value='email'>E-Mail</option>
-        <option value='apellido'>Apellido</option>
+        <option value='0' selected='selected'>DNI</option>
+        <option value='1'>E-Mail</option>
+        <option value='2'>Apellido</option>
     </select>
 	</div>
 	<div class="col-sm-5"><input type="text" id="busqueda" name="busqueda" required class="form-control" placeholder="Escribe la busqueda aqui..."></div>
@@ -80,25 +81,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<?php
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				if($formValid){
-					$connection = mysql_connect("localhost", "root", "");
-					$db = mysql_select_db("bestnid", $connection);
-					$query = mysql_query("SELECT * from registrado r INNER JOIN usuario u ON (r.email = u.email) where $criterio='$busqueda' AND u.tipo != -1", $connection);
-
-					while ($rows = mysql_fetch_assoc($query)) {
-						$email = $rows['email'];
-						echo "<tr>";
-						echo "<td>".$email."</td>";
-						echo "<td>".$rows['dni']."</td>";
-						echo "<td>".$rows['apellido']."</td>";
-						echo "<td>".$rows['nombre']."</td>";
-						echo "<td>".$rows['fechaAlta']."</td>";
-						echo "<td>".$rows['fechaNacimiento']."</td>";
-						echo "<td>".$rows['sexo']."</td>";
-						echo "<td><a href='eliminar_registrado_db.php?email=$email'>Eliminar</a></td>";
-						echo "</tr>";
+					switch ($criterio) {
+						case 0:
+							$rows = buscarUsuarioPorDni($busqueda);
+							break;
+						case 1:
+							$rows = buscarUsuarioPorEmail($busqueda);
+							break;
+						
+						case 2:
+							$rows = buscarUsuarioPorApellido($busqueda);
+							break;
 					}
-		
-					mysql_close($connection);
+					$email = $rows['email'];
+					echo "<tr>";
+					echo "<td>".$email."</td>";
+					echo "<td>".$rows['dni']."</td>";
+					echo "<td>".$rows['apellido']."</td>";
+					echo "<td>".$rows['nombre']."</td>";
+					echo "<td>".$rows['fechaAlta']."</td>";
+					echo "<td>".$rows['fechaNacimiento']."</td>";
+					echo "<td>".$rows['sexo']."</td>";
+					echo "<td><a href='eliminar_registrado_db.php?email=$email'>Eliminar</a></td>";
+					echo "</tr>";
 				}
 			}
 		?>

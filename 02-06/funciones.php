@@ -103,6 +103,50 @@ function verificarEmail($email){
 
 }
 
+function buscarUsuarioPorDni($busqueda){
+
+	$link = Database::connect();
+
+	$query = mysqli_query($link,"SELECT * from registrado r INNER JOIN usuario u ON (r.email = u.email) where dni=$busqueda AND u.tipo != -1") or die("Fallo");
+
+	$rows = mysqli_fetch_assoc($query);
+
+	Database::disconnect();
+
+	return $rows;
+		
+}
+
+function buscarUsuarioPorEmail($busqueda){
+
+	$link = Database::connect();
+
+	$query = mysqli_query($link,"SELECT * from registrado r INNER JOIN usuario u ON (r.email = u.email) where r.email='$busqueda' AND u.tipo != -1") or die("Fallo");
+
+	$rows = mysqli_fetch_assoc($query);
+
+	Database::disconnect();
+
+	return $rows;
+		
+}
+
+function buscarUsuarioPorApellido($busqueda){
+
+	$link = Database::connect();
+
+	$query = mysqli_query($link,"SELECT * from registrado r INNER JOIN usuario u ON (r.email = u.email) where apellido='$busqueda' AND u.tipo != -1") or die("Fallo");
+
+	$rows = mysqli_fetch_assoc($query);
+
+	Database::disconnect();
+
+	return $rows;
+		
+}
+
+
+
 function actualizarDatosUsuario($email,$nombre,$apellido,$pais,$provincia,$localidad,$sexo,$calle,$numCalle,$dpto,$piso){
 
 	$link = Database::connect();

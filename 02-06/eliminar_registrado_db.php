@@ -7,9 +7,9 @@ include("funciones.php");
             echo '<script language="javascript">alert("La cuenta fue dada de baja exitosamente");</script>';
          
 		 if($_SESSION['usuario'] == $email){
-			  header("refresh: 1 ; url = logout.php");
+			  header("refresh: 0.1 ; url = logout.php");
 		 }else if($_SESSION['tipouser'] == 1){
-			header("refresh: 1 ; url = indexPanel.php"); 
+			header("refresh: 0.1 ; url = indexPanel.php"); 
 		 }
 	}else{
 		header("Location: index.php");

@@ -42,13 +42,6 @@ $formValid = 1;
             }
         }
 
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-
  ?>
     <div class="container" style="margin-left: 10%">
         <div class="row">
@@ -86,17 +79,13 @@ $formValid = 1;
                     <em>Los campos marcados con * son obligatorios</em>
                     <br>
                     <br>
-                    <button class="btn btn-lg btn-warning center-block" style="padding-left: 15% ; padding-right: 15%" type="submit">Modificar</button>                 
+                    <button class="btn btn-lg btn-primary center-block" style="padding-left: 15% ; padding-right: 15%" type="submit">Modificar</button>                 
                 </fieldset> 
             </form>
         </div>
     </div>
 </body>
 </html>
-</div>
-
-<div class="clearfix visible-lg"></div>
-	
 </div>
 </body>
 </html>

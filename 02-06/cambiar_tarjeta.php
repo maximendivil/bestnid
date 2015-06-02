@@ -195,9 +195,11 @@ $fechaVencimiento = $rows['fechaVencimiento'];
                     <em>Los campos marcados con * son obligatorios</em>
                     <br>
                     <br>
-                    <button class="btn btn-lg btn-warning center-block" style="padding-left: 13% ; padding-right: 13%" type="submit">Enviar</button>                         
+                    <button class="btn btn-lg btn-primary center-block" style="padding-left: 13% ; padding-right: 13%" type="submit">Enviar</button>
+                    <br>
+                    <a href="javascript:history.back()" style="text-decoration: none"><button style="padding-left: 10% ; padding-right: 10%" class="btn btn-lg btn-default center-block" type="button">Volver</button></a>                         
                 </fieldset> 
             </form>
-            <a href="javascript:history.back()" style="text-decoration: none"><button class="btn btn-lg btn-warning" style="padding-left: 10% ; padding-right: 9.5% ; margin-left: 50.5%">Volver</button></a>
+            
         </div>
     </div>

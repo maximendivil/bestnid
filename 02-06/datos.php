@@ -261,7 +261,7 @@ $formValid = 1;
                     <em>Los campos marcados con * son obligatorios</em>
                     <br>
                     <br>
-                    <button class="btn btn-lg btn-warning center-block" style="padding-left: 15% ; padding-right: 15%" type="submit">Modificar</button>                 
+                    <button class="btn btn-lg btn-primary center-block" style="padding-left: 15% ; padding-right: 15%" type="submit">Modificar</button>                 
                 </fieldset> 
             </form>
         </div>
