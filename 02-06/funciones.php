@@ -219,8 +219,20 @@ function cargarPublicacion($titulo,$descripcion,$categoria,$user){
 	$creacion = date('y/m/d');
 	$finalizacion = date('y/m/d', strtotime('+1 month'));
 	mysqli_query($link, "INSERT INTO publicacion(titulo,descripcion,categoria,fechaCreacion,fechaFinalizacion,usuario) VALUES('$titulo','$descripcion','$categoria','$creacion','$finalizacion','$user')") or die("Fallo la publicacion");
+	$id=mysql_insert_id();
 
+	return $id;
 	Database::disconnect();
+
+}
+
+function cargarImagenes($img,$img2,$img3,$idPublicacion){
+
+	$link = Database::connect();
+
+	if ($img["size"] != 0){
+		mysqli_query($link,"INSERT INTO imagen(nombre,archivo,extension,idPublicacion) VALUES('$img['name']',)")
+	}
 
 }
 

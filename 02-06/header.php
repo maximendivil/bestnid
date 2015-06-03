@@ -19,7 +19,7 @@
 
 	<nav class="navbar navbar-default" role="navigation" >
 		<div class="col-lg-4">
-		<a style="padding-top:0em" class="navbar-brand" href="index.php"><img src="logo2.png" style="width: 100% ; height: 175% ; padding-left: 15%"></a>
+		<a style="padding-top:0em" class="navbar-brand" href="index.php"><img src="logo3.png" style="width: 100% ; height: 175% ; padding-left: 15%"></a>
 		</div>
 		<div class="col-lg-4" style="padding-top:1em ; padding-bottom:1em">
 		    <div class="input-group">

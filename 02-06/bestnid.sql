@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-06-2015 a las 23:16:00
+-- Tiempo de generación: 03-06-2015 a las 21:35:15
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -90,7 +90,9 @@ CREATE TABLE IF NOT EXISTS `comentario` (
 
 CREATE TABLE IF NOT EXISTS `imagen` (
   `idImagen` int(4) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
+  `nombre` char(50) NOT NULL,
+  `archivo` blob NOT NULL,
+  `extension` varchar(4) NOT NULL,
   `idPublicacion` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
