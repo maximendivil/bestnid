@@ -55,9 +55,10 @@
       //$id_categoria = consultarCategoria($categoria);
       $user = $_SESSION["usuario"];
       $idPublicacion = cargarPublicacion($titulo,$descripcion,1,$user);
+      
       cargarImagenes($_FILES["imagen"],$_FILES["imagen2"],$_FILES["imagen3"],$idPublicacion);
-      //echo "<script language='javascript'> alert('Su publicacion se ha realizado exitosamente!'); </script>";
-      //header("refresh: 0.1 ; url = index.php");
+      echo "<script language='javascript'> alert('Su publicacion se ha realizado exitosamente!'); </script>";
+      header("refresh: 0.1 ; url = index.php");
     }
     
 

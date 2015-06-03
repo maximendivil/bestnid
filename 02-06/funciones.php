@@ -219,11 +219,11 @@ function cargarPublicacion($titulo,$descripcion,$categoria,$user){
 	$creacion = date('y/m/d');
 	$finalizacion = date('y/m/d', strtotime('+1 month'));
 	mysqli_query($link, "INSERT INTO publicacion(titulo,descripcion,categoria,fechaCreacion,fechaFinalizacion,usuario) VALUES('$titulo','$descripcion','$categoria','$creacion','$finalizacion','$user')") or die("Fallo la publicacion");
-	$id=mysql_insert_id();
+	$id = mysqli_insert_id($link);
 
-	return $id;
 	Database::disconnect();
 
+	return $id;
 }
 
 function cargarImagenes($img,$img2,$img3,$idPublicacion){
@@ -231,8 +231,36 @@ function cargarImagenes($img,$img2,$img3,$idPublicacion){
 	$link = Database::connect();
 
 	if ($img["size"] != 0){
-		mysqli_query($link,"INSERT INTO imagen(nombre,archivo,extension,idPublicacion) VALUES('$img['name']',)")
+		$info=getimagesize($img["tmp_name"]);
+		$ancho = $info[0];
+		$alto = $info[1];
+		$tipo = $img["type"];
+		$contenido = mysqli_real_escape_string($link, file_get_contents($img["tmp_name"]));
+		mysqli_query($link,"INSERT INTO imagen(ancho,alto,tipo,contenido,idPublicacion) VALUES('$ancho','$alto','$tipo','$contenido','$idPublicacion')") or die("Fallo la creacion de la imagen");
+		
+	}	
+
+	if ($img2["size"] != 0){
+		$info =getimagesize($img2["tmp_name"]);
+		$ancho = $info[0];
+		$alto = $info[1];
+		$tipo = $img2["type"];
+		$contenido = mysqli_real_escape_string($link, file_get_contents($img2["tmp_name"]));
+		mysqli_query($link,"INSERT INTO imagen(ancho,alto,tipo,contenido,idPublicacion) VALUES('$ancho','$alto','$tipo','$contenido','$idPublicacion')") or die("Fallo la creacion de la imagen");
+		
 	}
+
+	if ($img3["size"] != 0){
+		$info=getimagesize($img3["tmp_name"]);
+		$ancho = $info[0];
+		$alto = $info[1];
+		$tipo = $img3["type"];
+		$contenido = mysqli_real_escape_string($link, file_get_contents($img3["tmp_name"]));
+		mysqli_query($link,"INSERT INTO imagen(ancho,alto,tipo,contenido,idPublicacion) VALUES('$ancho','$alto','$tipo','$contenido','$idPublicacion')") or die("Fallo la creacion de la imagen");
+	}
+	
+
+	Database::disconnect();
 
 }
 
