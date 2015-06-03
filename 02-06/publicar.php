@@ -3,16 +3,32 @@
   include("header.php");
   include("funciones.php");
 
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $formValid = 1;
+  $tituloErr = $descripcionErr = $categoriaErr = $imagenErr = "";
 
-    $titulo = $_POST["titulo"];
-    $descripcion = $_POST["descripcion"];
-    //$categoria = $_POST["categoria"];
-    //$id_categoria = consultarCategoria($categoria);
-    $user = $_SESSION["usuario"];
-    cargarPublicacion($titulo,$descripcion,1,$user);
-    echo "<script language='javascript'> alert('Su publicacion se ha realizado exitosamente!'); </script>";
-    header("refresh: 0.1 ; url = index.php");
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {    
+
+    $titulo = test_input($_POST["titulo"]);
+    if (!preg_match("/^[a-zA-Z ]*$/",$titulo)) {
+      $formValid = 0;
+      $tituloErr = "Solo se permiten letras y espacios"; 
+    }
+
+    $descripcion = test_input($_POST["descripcion"]);
+    if (!preg_match("/^[a-zA-Z0-9,.! ]*$/",$descripcion)) {
+      $formValid = 0;
+      $descripcionErr = "Solo se permiten letras, numeros, espacios, y signos(!,.)"; 
+    }
+
+    if($formValid){
+      //$categoria = $_POST["categoria"];
+      //$id_categoria = consultarCategoria($categoria);
+      $user = $_SESSION["usuario"];
+      cargarPublicacion($titulo,$descripcion,1,$user);
+      echo "<script language='javascript'> alert('Su publicacion se ha realizado exitosamente!'); </script>";
+      header("refresh: 0.1 ; url = index.php");
+    }
+    
 
   }
 ?>
@@ -26,6 +42,7 @@
           <label for="titulo" class="col-lg-2 control-label">Titulo *</label>
           <div class="col-lg-10">
             <input type="text" class="form-control" name="titulo" placeholder="Ingrese un titulo" required autofocus>
+            <span class="advertencia"><?php echo $tituloErr;?></span>
           </div>
         </div>
         <div class="form-group">
@@ -61,6 +78,7 @@
           <div class="col-lg-10">
             <textarea class="form-control" rows="6" name="descripcion"></textarea>
             <span class="help-block">Ingrese una descripcion de acuerdo a las caracteristicas del producto ingresado</span>
+            <span class="advertencia"><?php echo $descripcionErr;?></span>
           </div>
         </div>
         

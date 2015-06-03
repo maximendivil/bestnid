@@ -7,7 +7,6 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<link rel="stylesheet" type="text/css" href="libs/fileinput.min.css">
 	<link rel="icon" type="image/png" href="logo2.png" />
-	<!-- <script src="http://localhost/js/jquery.min.js" type="text/javascript"></script> -->	
 	<script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>	
 	<script src="libs/bootstrap.min.js" type="text/javascript"></script>
 	<script src="js/fileinput.min.js" type="text/javascript"></script>
@@ -19,9 +18,11 @@
 <body>
 
 	<nav class="navbar navbar-default" role="navigation" >
+		<div class="col-lg-4">
 		<a style="padding-top:0em" class="navbar-brand" href="index.php"><img src="logo2.png" style="width: 100% ; height: 175% ; padding-left: 15%"></a>
-		<div class="col-lg-6" style="padding-top:1em ; padding-bottom:1em">
-		    <div class="input-group" style="padding-left:50%">
+		</div>
+		<div class="col-lg-4" style="padding-top:1em ; padding-bottom:1em">
+		    <div class="input-group">
 		      <div class="input-group-btn">
 		        <button type="button" class="btn btn-default dropdown-toggle"
 		                data-toggle="dropdown">Buscar por  <span class="caret"></span>
@@ -37,7 +38,8 @@
 		      		<button class="btn btn-default" type="button">Buscar</button>
 		    	</span>
 		    </div>        	
-  		</div>	
+  		</div>
+  		<div class="col-lg-4">	
 		<?php		
 		if(isset($_SESSION['usuario'])){
 			echo	"<ul class='nav navbar-nav navbar-right' style='padding-top:0.5em ; padding-right: 2em'>";
@@ -53,4 +55,5 @@
 			echo	"</ul>";
 		}
 		?>
+		</div>
 	</nav>
