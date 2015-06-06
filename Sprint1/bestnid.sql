@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-06-2015 a las 22:43:12
+-- Tiempo de generación: 06-06-2015 a las 01:54:17
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -3943,7 +3943,7 @@ CREATE TABLE IF NOT EXISTS `tarjeta` (
   `banco` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
-  `fechaVencimiento` date NOT NULL
+  `fechaVencimiento` varchar(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -3951,7 +3951,7 @@ CREATE TABLE IF NOT EXISTS `tarjeta` (
 --
 
 INSERT INTO `tarjeta` (`numero`, `codSeguridad`, `empresa`, `banco`, `nombre`, `apellido`, `fechaVencimiento`) VALUES
-(1111222233334445, 1234, 'VISA', 'Santander RÃ­o', 'Maximiliano', 'Mendivil', '2016-01-01');
+(1111222233334445, 1234, 'VISA', 'Santander RÃ­o', 'Maximiliano', 'Mendivil', '01/2016');
 
 -- --------------------------------------------------------
 
@@ -4029,7 +4029,7 @@ ALTER TABLE `publicacion`
 -- Indices de la tabla `registrado`
 --
 ALTER TABLE `registrado`
- ADD PRIMARY KEY (`email`), ADD UNIQUE KEY `dni` (`dni`), ADD KEY `index_pais` (`paisID`);
+ ADD PRIMARY KEY (`email`), ADD UNIQUE KEY `dni` (`dni`), ADD KEY `index_pais` (`paisID`), ADD KEY `tarjeta` (`tarjeta`), ADD KEY `provinciaID` (`provinciaID`);
 
 --
 -- Indices de la tabla `tarjeta`
@@ -4123,7 +4123,10 @@ ADD CONSTRAINT `publicacion_ibfk_2` FOREIGN KEY (`usuario`) REFERENCES `registra
 -- Filtros para la tabla `registrado`
 --
 ALTER TABLE `registrado`
-ADD CONSTRAINT `registrado_ibfk_1` FOREIGN KEY (`email`) REFERENCES `usuario` (`email`);
+ADD CONSTRAINT `registrado_ibfk_1` FOREIGN KEY (`email`) REFERENCES `usuario` (`email`),
+ADD CONSTRAINT `registrado_ibfk_2` FOREIGN KEY (`paisID`) REFERENCES `pais` (`pais_id`),
+ADD CONSTRAINT `registrado_ibfk_3` FOREIGN KEY (`tarjeta`) REFERENCES `tarjeta` (`numero`),
+ADD CONSTRAINT `registrado_ibfk_4` FOREIGN KEY (`provinciaID`) REFERENCES `provincia` (`provincia_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

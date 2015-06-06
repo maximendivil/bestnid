@@ -182,9 +182,9 @@ function registrarTarjeta($numTarjeta,$codSeg,$empresa,$banco,$vencimiento,$nomb
     
     $link = Database::connect(); 
     
-    $vencimiento = "01/".$vencimiento;
-    $date = date("Y/m/d", strtotime($vencimiento));
-    mysqli_query($link,"INSERT INTO tarjeta(numero,codSeguridad,empresa,banco,nombre,apellido,fechaVencimiento) VALUES ('$numTarjeta','$codSeg','$empresa','$banco','$nombreTitular','$apellidoTitular','$date')") or die("Falló al intentar registrar la tarjeta");
+    /*$vencimiento = "01/".$vencimiento;
+    $date = date("Y/m/d", strtotime($vencimiento));*/
+    mysqli_query($link,"INSERT INTO tarjeta(numero,codSeguridad,empresa,banco,nombre,apellido,fechaVencimiento) VALUES ('$numTarjeta','$codSeg','$empresa','$banco','$nombreTitular','$apellidoTitular','$vencimiento')") or die("Falló al intentar registrar la tarjeta");
     
     Database::disconnect();
 }
@@ -262,6 +262,18 @@ function cargarImagenes($img,$img2,$img3,$idPublicacion){
 
 	Database::disconnect();
 
+}
+
+function buscarPorTitulo($titulo){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT * FROM publicacion WHERE titulo like '%".$titulo."%'")or die("Fallo la busqueda de publicaciones por titulo");
+	$rows = mysqli_fetch_assoc($resultado);
+
+	Database::disconnect();
+
+	return $rows;
 }
 
 

@@ -70,8 +70,6 @@
 
     if($formValid){
 
-      echo $_FILES["imagen"]["type"];
-
       $categoria = $_POST["categoria"];
       //$id_categoria = consultarCategoria($categoria);
       $user = $_SESSION["usuario"];
@@ -103,10 +101,6 @@
           <div class="col-lg-10">
             <select class="form-control" name="categoria">
               <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
             </select>
           </div>
         </div>
@@ -124,7 +118,7 @@
           <label for="descripcion" class="col-lg-2 control-label">Descripcion *</label>
           <div class="col-lg-10">
             <textarea class="form-control" rows="6" name="descripcion"><?php if (isset($_POST['descripcion'])) echo $_POST['descripcion']; ?></textarea>
-            <span class="help-block">Ingrese una descripcion de acuerdo a las caracteristicas del producto ingresado</span>
+            <span class="help-block">Ingrese una descripcion de acuerdo a las caracteristicas del producto</span>
             <span class="advertencia"><?php echo $descripcionErr;?></span>
           </div>
         </div>

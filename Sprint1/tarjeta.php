@@ -30,7 +30,16 @@
                 }
             }
             
-            
+            $vencimiento = $_POST["vencimiento"];
+            $año = substr($vencimiento,3,4);
+            $mes = substr($vencimiento,0,2);
+            $mesActual = date("m");
+            $añoActual = date("Y");
+            if ((($año == $añoActual)and($mes < $mesActual))or($año < $añoActual)){
+                $formValid = 0;
+                $vencimientoErr = "La tarjeta se encuentra vencida. Por favor contactarse con la empresa expendedora de tarjetas";
+            }
+
 
             $nombreTitular = test_input($_POST["nombreTitular"]);
             if (!preg_match("/^[a-zA-Z ]*$/",$nombreTitular)) {
