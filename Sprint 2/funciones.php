@@ -334,6 +334,21 @@ function buscarPorCategoria($idCategoria){
 	return $array;
 }
 
+function buscarPublicaciones(){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT * FROM publicacion ORDER BY titulo ASC")or die("Fallo la busqueda de publicaciones por categoria");
+	$array = array();
+	while ($rows = mysqli_fetch_assoc($resultado)){
+		array_push($array,$rows);
+	}
+
+	Database::disconnect();
+
+	return $array;
+}
+
 function obtenerUsuarios(){
 
 	$link = Database::connect();
@@ -354,7 +369,7 @@ function verificarCategoria($nombre){
     $link = Database::connect();
     
     $result = mysqli_query($link,"SELECT * FROM categoria WHERE nombre='$nombre'") or die('Falló la consulta de categoria');
-    $total = mysqli_num_rows($result);
+    $total = mysqli_fetch_assoc($result);
     
     Database::disconnect();
     
@@ -371,6 +386,16 @@ function agregarCategoria($nombre){
 
 }
 
+function agregarCategoriaBorrada($nombre){
+
+	$link = Database::connect();
+
+	mysqli_query($link,"UPDATE categoria SET borrado=0 WHERE nombre='$nombre'")or die("Fallo al crear categoria");
+
+	Database::disconnect();
+
+}
+
 function eliminarCategoria($nombre){
 
 	$link = Database::connect();
@@ -379,6 +404,19 @@ function eliminarCategoria($nombre){
 
 	Database::disconnect();
 
+}
+
+function buscarImagenPublicacion($idPublicacion){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT idImagen FROM imagen WHERE idPublicacion=$idPublicacion LIMIT 1")or die("Fallo al buscar imagen");
+
+	$idImagen = mysqli_fetch_row($resultado);
+
+	Database::disconnect();
+
+	return $idImagen[0];
 }
 
 ?>

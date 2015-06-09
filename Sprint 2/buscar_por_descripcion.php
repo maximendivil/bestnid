@@ -16,11 +16,12 @@
 	$descripcion = $_SESSION["descripcion"];
 	$resultado = buscarPorDescripcion($descripcion);
 	if (count($resultado)>0){
-		for ($i=0; $i < count($resultado); $i+=7) { 			
+		for ($i=0; $i < count($resultado); $i++) { 			
 		
 			echo "<div class='col-sm-8 col-lg-4 col-md-4'>";
             echo "<div class='thumbnail'>";
-            //echo "<img src='' alt=''>";
+            $idImagen = buscarImagenPublicacion($resultado[$i]["numeroPublicacion"]);
+			echo "<img src='imagen_mostrar.php?id=".$idImagen."' width='320' height='150'>";
             echo "<div class='caption'>";
             echo "<h4><a href='#'>".$resultado[$i]["titulo"]."</a></h4>";
             echo "<p>".$resultado[$i]["descripcion"]."</p>";

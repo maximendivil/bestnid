@@ -12,9 +12,8 @@
         	<div class="row">
 
         	<?php
-				$categoria = $_GET["nombre"];
-				$idCategoria = consultarCategoria($categoria);
-				$resultado = buscarPorCategoria($idCategoria);
+
+				$resultado = buscarPublicaciones();
 
 				if (count($resultado)>0){
 					for ($i=0; $i < count($resultado); $i++) { 			

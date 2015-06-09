@@ -5,6 +5,7 @@
             for ($i=0; $i < count($categorias) ; $i++) { 
                 echo "<a href='buscar_por_categoria.php?nombre=".$categorias[$i][0]."' class='list-group-item'>".$categorias[$i][0]."</a>";
             }
+            echo "<a href='mostrar_publicaciones.php' class='list-group-item' style='border-color: red; color: red'>Todas</a>";
         ?>
     </div>
 </div>

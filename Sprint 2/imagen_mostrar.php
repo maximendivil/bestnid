@@ -10,7 +10,9 @@ $link = Database::connect();
  
 # Buscamos la imagen a mostrar
 
-$result=mysqli_query($link,"SELECT * FROM imagen WHERE idImagen=6")or die("Fallo");
+$idImagen = $_GET["id"];
+
+$result=mysqli_query($link,"SELECT * FROM imagen WHERE idImagen='$idImagen'")or die("Fallo");
 if($result){
 	$row=mysqli_fetch_array($result);
 	header("Content-type:".$row["tipo"]);

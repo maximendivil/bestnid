@@ -206,9 +206,9 @@
                     <em>Los campos marcados con * son obligatorios</em>
                     <br>
                     <button class="btn btn-lg btn-primary center-block" style="padding-left: 15% ; padding-right: 15%" type="submit">Enviar</button>                    
-                    <!-- <button class="btn btn-lg btn-warning center-block" style="padding-left: 15% ; padding-right: 15%" type="submit" href="registrarse.php">Volver</button> -->           
+                    
+            <a href="registrarse.php" style="text-decoration: none"><button type="button"class="btn btn-default btn-lg center-block" style="padding-left: 15% ; padding-right: 15%">Volver</button></a><!-- <button class="btn btn-lg btn-warning center-block" style="padding-left: 15% ; padding-right: 15%" type="submit" href="registrarse.php">Volver</button> -->           
                 </fieldset> 
             </form>
-            <a href="registrarse.php" style="text-decoration: none"><button class="btn btn-default btn-lg center-block" style="padding-left: 15% ; padding-right: 15%">Volver</button></a>
         </div>
     </div>
