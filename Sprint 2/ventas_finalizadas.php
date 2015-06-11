@@ -34,9 +34,13 @@ if(isset($_GET['finalizar'])){
 					echo "<td><img src='imagen_mostrar.php?id=".$idImagen."' width='40' height='40'> ".$rows[$i]["titulo"]."</td>";
 					echo "<td>".$rows[$i]['fechaCreacion']."</td>";
 					echo "<td>".$rows[$i]['fechaFinalizacion']."</td>";
-					echo "<td><a href='#' data-toggle='tooltip' title='Ver publicacion'><span class='glyphicon glyphicon-search'></span></a> <a href='#' data-toggle='tooltip' title='Republicar'><span class='glyphicon glyphicon-repeat'></span></a></td>";
+					echo "<td><a href='#' data-toggle='tooltip' title='Ver publicacion'><span class='glyphicon glyphicon-search'></span></a> <a href='republicar.php?idPublicacion=".$rows[$i]["numeroPublicacion"]."' data-toggle='tooltip' title='Republicar'><span class='glyphicon glyphicon-repeat'></span></a></td>";
 					echo "</tr>";	
-				}	
+				}
+		
+			}
+			else {
+				echo "<div class='alert alert-danger'><p style='color: red ; text-align: center'>No hay publicaciones finalizadas!</p></div>";
 			}
 		?>
     </tbody>

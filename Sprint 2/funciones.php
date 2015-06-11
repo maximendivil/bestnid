@@ -480,4 +480,15 @@ function cantidadRegistrados(){
 	return $cant[0];
 }
 
+function republicar($idPublicacion){
+
+	$link = Database::connect();
+
+	$creacion = date('y/m/d');
+	$finalizacion = date('y/m/d', strtotime('+1 month'));
+	mysqli_query($link,"UPDATE publicacion SET finalizada=0,fechaCreacion='$creacion',fechaFinalizacion='$finalizacion' WHERE numeroPublicacion=$idPublicacion") or die("Fallo al republicar");
+
+	Database::disconnect();
+}
+
 ?>
