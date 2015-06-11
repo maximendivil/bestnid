@@ -8,8 +8,8 @@
 		<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ventas <span class="caret"></span></a>
 			<ul class="dropdown-menu">
-            <li><a href="#">Activas</a></li>
-            <li><a href="#">Finalizadas</a></li>
+            <li><a href="ventas_activas.php">Activas</a></li>
+            <li><a href="ventas_finalizadas.php">Finalizadas</a></li>
             <li><a href="#">Preguntas</a></li>                        
 			</ul>
        </li>

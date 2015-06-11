@@ -307,11 +307,13 @@ function consultarCategorias(){
 function buscarPorCategoria($idCategoria){
 
 	$link = Database::connect();
-
+	
+	$fechaActual = date('Y-m-d');
+	
 	$resultado = mysqli_query($link,"SELECT * FROM publicacion WHERE categoria=$idCategoria ORDER BY titulo ASC")or die("Fallo la busqueda de publicaciones por categoria");
 	$array = array();
 	while ($rows = mysqli_fetch_assoc($resultado)){
-		array_push($array,$rows);
+		if( ($rows['finalizada'] == 0) AND ($fechaActual < $rows['fechaFinalizacion']) ) array_push($array,$rows);
 	}
 
 	Database::disconnect();
@@ -322,11 +324,13 @@ function buscarPorCategoria($idCategoria){
 function buscarPublicaciones(){
 
 	$link = Database::connect();
-
+	
+	$fechaActual = date('Y-m-d');
+	
 	$resultado = mysqli_query($link,"SELECT * FROM publicacion ORDER BY titulo ASC")or die("Fallo la busqueda de publicaciones por categoria");
 	$array = array();
 	while ($rows = mysqli_fetch_assoc($resultado)){
-		array_push($array,$rows);
+		if( ($rows['finalizada'] == 0) AND ($fechaActual < $rows['fechaFinalizacion']) ) array_push($array,$rows);
 	}
 
 	Database::disconnect();
@@ -402,6 +406,50 @@ function buscarImagenPublicacion($idPublicacion){
 	Database::disconnect();
 
 	return $idImagen[0];
+}
+
+function obtenerVentasActivas($usuario){
+
+	$link = Database::connect();
+	
+	$fechaActual = date('Y-m-d');
+
+	$resultado = mysqli_query($link,"SELECT * FROM publicacion WHERE usuario='$usuario' ORDER BY fechaCreacion ASC")or die("Fallo la busqueda de ventas");
+	$array = array();
+	while ($rows = mysqli_fetch_assoc($resultado)){
+		if( ($rows['finalizada'] == 0) AND ($fechaActual < $rows['fechaFinalizacion']) ) array_push($array,$rows);
+	}
+
+	Database::disconnect();
+
+	return $array;
+}
+
+function obtenerVentasFinalizadas($usuario){
+
+	$link = Database::connect();
+	
+	$fechaActual = date('Y-m-d');
+
+	$resultado = mysqli_query($link,"SELECT * FROM publicacion WHERE usuario='$usuario' ORDER BY fechaCreacion ASC")or die("Fallo la busqueda de ventas");
+	$array = array();
+	while ($rows = mysqli_fetch_assoc($resultado)){
+		if( ($rows['finalizada'] == 1) OR ($fechaActual > $rows['fechaFinalizacion']) ) array_push($array,$rows);
+	}
+
+	Database::disconnect();
+
+	return $array;
+}
+
+function finalizarPublicacion($idPublicacion){
+	
+	$link = Database::connect();
+	
+	$fechaActual = date('Y-m-d');
+	mysqli_query($link,"UPDATE publicacion SET finalizada=1, fechaFinalizacion='$fechaActual' WHERE numeroPublicacion=$idPublicacion")or die("Fallo al buscar imagen");
+
+	Database::disconnect();
 }
 
 ?>
