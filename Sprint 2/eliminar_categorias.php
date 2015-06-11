@@ -27,7 +27,8 @@
 		<button type="submit" class="btn btn-md btn-primary center-block">Eliminar</button>
 		<?php
 			echo "<br>";
-			echo $_SESSION["exito"];		
+			echo $_SESSION["exito"];	
+			$_SESSION["exito"] = "";
 		?>
 	</form>
 	
