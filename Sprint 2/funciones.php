@@ -452,4 +452,32 @@ function finalizarPublicacion($idPublicacion){
 	Database::disconnect();
 }
 
+function buscarRegistradosEntreFechas($fechaInicial,$fechaFinal){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT * FROM registrado WHERE '$fechaInicial' <= fechaAlta and fechaAlta <= '$fechaFinal'")or die("Fallo al buscar usuarios registrados entre dos fechas");
+	$array = array();
+	while ($rows = mysqli_fetch_assoc($resultado)){
+		array_push($array,$rows);
+	}
+
+	Database::disconnect();
+
+	return $array;
+
+}
+
+function cantidadRegistrados(){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT COUNT(dni) from registrado r INNER JOIN usuario u on(r.email=u.email) WHERE tipo = 0") or die("Fallo al obtener la cantidad de usuarios registrados");
+	$cant = mysqli_fetch_row($resultado);
+
+	Database::disconnect();
+
+	return $cant[0];
+}
+
 ?>

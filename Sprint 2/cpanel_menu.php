@@ -48,7 +48,7 @@
 		echo "<li class='dropdown'>";
 			echo "<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Usuarios<span class='caret'></span></a>";
 			echo "<ul class='dropdown-menu'>";
-            echo "<li><a href='#'>Reporte de registros</a></li>";     
+            echo "<li><a href='reporte_usuarios.php'>Reporte de registros</a></li>";     
             echo "<li><a href='buscar_user.php'>Eliminar usuario</a></li>";			
 			echo "</ul>";
 		echo "</li>";

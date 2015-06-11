@@ -1,8 +1,9 @@
 <?php
+	session_start();
 	include("header.php");
 	include("funciones.php");
 	include("ver_categorias.php");
-	session_start();
+	
 ?>
 
 <div class="container col-md-8">
