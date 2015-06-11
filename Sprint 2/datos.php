@@ -93,7 +93,7 @@ $formValid = 1;
                     $_SESSION["calle"] = $_POST["calle"];
                     $_SESSION["numCalle"] = $_POST["numCalle"];
                     $_SESSION["dpto"] = $_POST["dpto"];
-                    $_SESSION["piso"] = $_POST["piso"];       
+                    $_SESSION["piso"] = $_POST["piso"];
                     header("location: modificar_datos.php");                    
             }
         }
@@ -172,20 +172,20 @@ $formValid = 1;
                         mysql_select_db('bestnid',$dbc);       
                         $query_pais = "select * from pais";
                         $result_query_pais = mysql_query($query_pais);      
-
-						$query_pais_actual = "select * from pais where pais_id = $paisID";
-						$result_query_pais_actual = mysql_query($query_pais_actual);
+						$codep = '';
                     ?>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="pais">País *</label>  
                         <div class="col-md-5">
                             <?php
                                 echo "<select class='form-control'  id='pais' name='pais' required onchange='obtener_provincias(this.value)'>";
-								while($fila = mysql_fetch_assoc($result_query_pais_actual)){
-									echo "<option value='".$fila['code']."' selected='selected' >".$fila['nombre']."</option>";
-								}
                                 while($fila = mysql_fetch_array($result_query_pais)){
-                                    echo "<option value='".$fila['code']."'>".$fila['nombre']."</option>";
+									if($fila['pais_id'] == $paisID){
+										echo "<option value='".$fila['code']."' selected>".$fila['nombre']."</option>";
+										$codep = $fila['code'];
+									}else{
+										echo "<option value='".$fila['code']."'>".$fila['nombre']."</option>";
+									}
                                 }
                                 echo "</select>";
                             ?>
@@ -193,10 +193,10 @@ $formValid = 1;
                         </div>
                     </div>
 					
-					<?php   // ----CONSULTA DE PROVINCIA ACTUAL
+					<?php   // ----CONSULTA DE PROVINCIAS
                         $dbc = @mysql_connect('localhost','root','');
                         mysql_select_db('bestnid',$dbc);       
-                        $query_provincia = "select * from provincia where provincia_id = $provinciaID";
+                        $query_provincia = "select * from provincia where codep='".$codep."'";
                         $result_query_provincia = mysql_query($query_provincia);   
                     ?>
                     <div class="form-group">
@@ -204,8 +204,12 @@ $formValid = 1;
                         <div class="col-md-5">
                             <?php
                                 echo "<select class='form-control'  id='provincia' name='provincia'>";
-								while($fila = mysql_fetch_assoc($result_query_provincia)){
-									echo "<option value='".$fila['codep']."' selected='selected' >".$fila['nombre']."</option>";
+								while($fila = mysql_fetch_array($result_query_provincia)){
+									if($fila['provincia_id'] == $provinciaID){
+										echo "<option value='".$fila['provincia_id']."' selected>".$fila['nombre']."</option>";
+									}else{
+										echo "<option value='".$fila['provincia_id']."'>".$fila['nombre']."</option>";
+									}
 								}
                                 echo "</select>";
                             ?>
