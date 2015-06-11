@@ -274,26 +274,11 @@ function cargarImagenes($img,$img2,$img3,$idPublicacion){
 
 }
 
-function buscarPorTitulo($titulo){
+function buscarPor($criterio,$data){
 
 	$link = Database::connect();
 
-	$resultado = mysqli_query($link,"SELECT * FROM publicacion WHERE titulo like '%".$titulo."%'")or die("Fallo la busqueda de publicaciones por titulo");
-	$array = array();
-	while ($rows = mysqli_fetch_assoc($resultado)){
-		array_push($array, $rows);
-	}
-
-	Database::disconnect();
-
-	return $array;
-}
-
-function buscarPorDescripcion($descripcion){
-
-	$link = Database::connect();
-
-	$resultado = mysqli_query($link,"SELECT * FROM publicacion WHERE descripcion like '%".$descripcion."%'")or die("Fallo la busqueda de publicaciones por descripcion");
+	$resultado = mysqli_query($link,"SELECT * FROM publicacion WHERE $criterio like '%".$data."%'")or die("Fallo la busqueda de publicaciones por descripcion");
 	$array = array();
 	while ($rows = mysqli_fetch_assoc($resultado)){
 		array_push($array, $rows);

@@ -24,15 +24,14 @@
 		<div class="col-lg-4" style="padding-top:1em ; padding-bottom:1em">			
 		    <div class="input-group">
 		      <div class="input-group-btn">
-		      	<form class="form-inline" method="POST" action="busqueda_header.php">
+		      	<form class="form-inline" method="POST" action="buscar_articulo.php">
 					<select class="btn btn-default" name="criterio">
-			        	<option value=0>Buscar por</option>
-			        	<option value=1>Titulo</option>
-			        	<option value="2">Descripcion</option>
+			        	<option value="titulo">Titulo</option>
+			        	<option value="descripcion">Descripcion</option>
 			        </select>
 				
 		      </div>	 
-		      		<input type="text" name="busqueda"class="form-control">
+		      		<input type="text" name="busqueda" placeholder="Ingrese aqui su busqueda..." class="form-control">
 		      		<span class="input-group-btn">
 		      			<button class="btn btn-default" type="submit" style="padding-top: 11px ; padding-bottom: 11px"><span class="glyphicon glyphicon-search"></span></button>
 		    		</span>

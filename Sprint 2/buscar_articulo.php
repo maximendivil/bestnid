@@ -13,8 +13,9 @@
 
 <?php
 
-	$descripcion = $_SESSION["descripcion"];
-	$resultado = buscarPorDescripcion($descripcion);
+	$criterio = $_POST["criterio"];
+	$data = $_POST["busqueda"];
+	$resultado = buscarPor($criterio,$data);
 	if (count($resultado)>0){
 		for ($i=0; $i < count($resultado); $i++) { 			
 		
