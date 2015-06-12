@@ -93,7 +93,7 @@
 								echo "<div class='col-md-12'>";
 								echo $rows[$i]['idRegistrado'];
 								echo "<span class='pull-right'>".$rows[$i]['fecha']."";
-								if($_SESSION['tipouser'] == 1){
+								if ( (isset($_SESSION['usuario'])) AND($_SESSION['tipouser'] == 1) ){
 									echo " <a href='eliminar_comentario.php?id=$idComentario' data-toggle='tooltip' title='Eliminar comentario'><span class='glyphicon glyphicon-remove'></span></a>";
 								}
 								echo "</span>";
