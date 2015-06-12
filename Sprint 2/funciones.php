@@ -491,4 +491,51 @@ function republicar($idPublicacion){
 	Database::disconnect();
 }
 
+function obtenerPublicacion($idPublicacion){
+	
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT * FROM publicacion WHERE numeroPublicacion=$idPublicacion")or die("Fallo la busqueda de publicacion");
+	$rows = mysqli_fetch_assoc($resultado);
+
+	Database::disconnect();
+
+	return $rows;
+}
+
+function obtenerComentarios($idPublicacion){
+	
+	$link = Database::connect();
+	
+	$resultado = mysqli_query($link,"SELECT * FROM comentario WHERE idPublicacion='$idPublicacion' ORDER BY fecha DESC")or die("Fallo la busqueda de comentarios");
+	$array = array();
+	while ($rows = mysqli_fetch_assoc($resultado)){
+		if($rows['borrado'] == 0) array_push($array,$rows);
+	}
+
+	Database::disconnect();
+
+	return $array;
+}
+
+
+function insertarComentario($publicacion,$usuario,$comentario){
+
+	$link = Database::connect();
+	
+	$fechayhora = date('Y-m-d H:i:s');
+	mysqli_query($link,"INSERT INTO comentario(idPublicacion,idRegistrado,contenido,fecha) VALUES('$publicacion','$usuario','$comentario','$fechayhora')")or die("Fallo al insertar comentario");
+
+	Database::disconnect();
+
+}
+
+function eliminarComentario($idComentario){
+
+	$link = Database::connect();
+
+	mysqli_query($link,"UPDATE comentario SET borrado=1 WHERE idComentario=$idComentario") or die("Fallo al eliminar comentario");
+
+	Database::disconnect();
+}
 ?>

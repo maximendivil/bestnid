@@ -19,17 +19,17 @@
 
 				if (count($resultado)>0){
 					for ($i=0; $i < count($resultado); $i++) { 			
-					
+						$idPublicacion = $resultado[$i]["numeroPublicacion"];
 						echo "<div class='col-sm-8 col-lg-4 col-md-4'>";
 			            echo "<div class='thumbnail'>";
-			            $idImagen = buscarImagenPublicacion($resultado[$i]["numeroPublicacion"]);
-			            echo "<img src='imagen_mostrar.php?id=".$idImagen."' width='320' height='150'>";
+			            $idImagen = buscarImagenPublicacion($idPublicacion);
+			            echo "<a href='publicacion.php?id=$idPublicacion'><img src='imagen_mostrar.php?id=".$idImagen."' width='320' height='150'></a>";
 			            echo "<div class='caption'>";
-			            echo "<h4><a href='#'>".$resultado[$i]["titulo"]."</a></h4>";
+			            echo "<h4><a href='publicacion.php?id=$idPublicacion'>".$resultado[$i]["titulo"]."</a></h4>";
 			            echo "<p>".$resultado[$i]["descripcion"]."</p>";
 			            echo "</div>";
 			            echo "<div class='ratings'>";
-				        echo "<p><a href='#' type='button' class='btn btn-primary center-block' style='margin-left: 100px; margin-right: 100px; margin-top: -25px'>Ver publicacion</a></p>";
+				        echo "<p><a href='publicacion.php?id=$idPublicacion' type='button' class='btn btn-primary center-block' style='margin-left: 100px; margin-right: 100px; margin-top: -25px'>Ver publicacion</a></p>";
 				        echo "</div>";
 			            echo "</div>";
 			            echo "</div>";

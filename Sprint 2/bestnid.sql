@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-06-2015 a las 19:51:05
+-- Tiempo de generación: 12-06-2015 a las 19:19:19
 -- Versión del servidor: 5.6.24
 -- Versión de PHP: 5.6.8
 
@@ -101,8 +101,27 @@ CREATE TABLE IF NOT EXISTS `comentario` (
   `idComentario` int(4) NOT NULL,
   `idPublicacion` int(4) NOT NULL,
   `idRegistrado` varchar(50) NOT NULL,
-  `contenido` varchar(144) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `contenido` varchar(144) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `borrado` tinyint(4) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `comentario`
+--
+
+INSERT INTO `comentario` (`idComentario`, `idPublicacion`, `idRegistrado`, `contenido`, `fecha`, `borrado`) VALUES
+(1, 3, 'maximendivil22@gmail.com', 'Hola, te puedo hacer una pregunta? gracias.', '2015-06-11 19:27:07', 0),
+(8, 3, 'maximendivil22@gmail.com', 'aaaa', '2015-06-12 00:29:06', 0),
+(9, 3, 'maximendivil22@gmail.com', 'hola como te va', '2015-06-12 00:29:19', 0),
+(10, 3, 'maximendivil22@gmail.com', 'esta medio flashado el dia y la hora no se porque..', '2015-06-12 00:29:39', 0),
+(12, 3, 'maximendivil22@gmail.com', 'aaaaaaaaa', '2015-06-12 00:46:05', 0),
+(14, 3, 'maximendivil22@gmail.com', 'hola como te va', '2015-06-12 18:21:28', 0),
+(19, 3, 'a@a.com', 'hola soy el admin.. chupenme las bolas', '2015-06-12 18:54:48', 0),
+(20, 3, 'a@a.com', 'hola', '2015-06-12 19:01:02', 0),
+(21, 3, 'a@a.com', 'hola', '2015-06-12 19:01:06', 1),
+(22, 3, 'a@a.com', 'pepe', '2015-06-12 19:10:08', 1),
+(23, 3, 'a@a.com', 'pepe', '2015-06-12 19:10:11', 1);
 
 -- --------------------------------------------------------
 
@@ -3919,7 +3938,7 @@ CREATE TABLE IF NOT EXISTS `publicacion` (
 --
 
 INSERT INTO `publicacion` (`numeroPublicacion`, `categoria`, `titulo`, `fechaCreacion`, `fechaFinalizacion`, `descripcion`, `usuario`, `finalizada`) VALUES
-(1, 1, 'Prueba', '2015-06-04', '2015-06-11', 'Es una prueba', 'maximendivil22@gmail.com', 1),
+(1, 1, 'Prueba', '2015-06-12', '2015-07-12', 'Es una prueba', 'maximendivil22@gmail.com', 0),
 (3, 7, 'Acer', '2015-06-09', '2015-07-09', 'notebook', 'maximendivil22@gmail.com', 0);
 
 -- --------------------------------------------------------
@@ -3951,6 +3970,7 @@ CREATE TABLE IF NOT EXISTS `registrado` (
 --
 
 INSERT INTO `registrado` (`nombre`, `apellido`, `dni`, `email`, `fechaAlta`, `fechaNacimiento`, `sexo`, `calle`, `numCalle`, `departamento`, `piso`, `localidad`, `paisID`, `provinciaID`, `tarjeta`) VALUES
+('Admin', 'istrador', 12345678, 'a@a.com', '2015-05-01', '1992-08-01', 'M', '369', 568, NULL, NULL, 'Ranelagh', 12, 190, 1111111111111111),
 ('Maximiliano', 'Mendivil', 36734753, 'maximendivil22@gmail.com', '2015-05-27', '1993-01-02', 'M', '17 e/ 527 y 528', 393, '', 0, 'La Plata', 12, 198, 1111222233334445);
 
 -- --------------------------------------------------------
@@ -3974,6 +3994,7 @@ CREATE TABLE IF NOT EXISTS `tarjeta` (
 --
 
 INSERT INTO `tarjeta` (`numero`, `codSeguridad`, `empresa`, `banco`, `nombre`, `apellido`, `fechaVencimiento`) VALUES
+(1111111111111111, 1233, 'Visa', 'Santander RÃo', 'Admin', 'istrador', '01/2018'),
 (1111222233334445, 1234, 'VISA', 'Santander RÃ­o', 'Maximiliano', 'Mendivil', '01/2016');
 
 -- --------------------------------------------------------
@@ -4016,7 +4037,7 @@ ALTER TABLE `categoria-publicacion`
 -- Indices de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  ADD PRIMARY KEY (`idComentario`), ADD UNIQUE KEY `idPublicacion` (`idPublicacion`,`idRegistrado`), ADD UNIQUE KEY `idRegistrado` (`idRegistrado`);
+  ADD PRIMARY KEY (`idComentario`), ADD KEY `idPublicacion` (`idPublicacion`,`idRegistrado`), ADD KEY `idRegistrado` (`idRegistrado`);
 
 --
 -- Indices de la tabla `imagen`
@@ -4079,7 +4100,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `idComentario` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `idComentario` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT de la tabla `imagen`
 --
