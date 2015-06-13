@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.11
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2015 a las 19:19:19
--- Versión del servidor: 5.6.24
--- Versión de PHP: 5.6.8
+-- Tiempo de generación: 13-06-2015 a las 03:31:29
+-- Versión del servidor: 5.6.21
+-- Versión de PHP: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -51,7 +51,7 @@ INSERT INTO `administrador` (`email`, `password`, `fechaAlta`) VALUES
 
 CREATE TABLE IF NOT EXISTS `categoria` (
   `nombre` varchar(50) NOT NULL,
-  `idCategoria` int(10) NOT NULL,
+`idCategoria` int(10) NOT NULL,
   `borrado` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
@@ -98,13 +98,13 @@ CREATE TABLE IF NOT EXISTS `categoria-publicacion` (
 --
 
 CREATE TABLE IF NOT EXISTS `comentario` (
-  `idComentario` int(4) NOT NULL,
+`idComentario` int(4) NOT NULL,
   `idPublicacion` int(4) NOT NULL,
   `idRegistrado` varchar(50) NOT NULL,
   `contenido` varchar(144) NOT NULL,
   `fecha` datetime NOT NULL,
   `borrado` tinyint(4) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `comentario`
@@ -112,16 +112,23 @@ CREATE TABLE IF NOT EXISTS `comentario` (
 
 INSERT INTO `comentario` (`idComentario`, `idPublicacion`, `idRegistrado`, `contenido`, `fecha`, `borrado`) VALUES
 (1, 3, 'maximendivil22@gmail.com', 'Hola, te puedo hacer una pregunta? gracias.', '2015-06-11 19:27:07', 0),
-(8, 3, 'maximendivil22@gmail.com', 'aaaa', '2015-06-12 00:29:06', 0),
-(9, 3, 'maximendivil22@gmail.com', 'hola como te va', '2015-06-12 00:29:19', 0),
-(10, 3, 'maximendivil22@gmail.com', 'esta medio flashado el dia y la hora no se porque..', '2015-06-12 00:29:39', 0),
-(12, 3, 'maximendivil22@gmail.com', 'aaaaaaaaa', '2015-06-12 00:46:05', 0),
-(14, 3, 'maximendivil22@gmail.com', 'hola como te va', '2015-06-12 18:21:28', 0),
-(19, 3, 'a@a.com', 'hola soy el admin.. chupenme las bolas', '2015-06-12 18:54:48', 0),
+(8, 3, 'maximendivil22@gmail.com', 'aaaa', '2015-06-12 00:29:06', 1),
+(9, 3, 'maximendivil22@gmail.com', 'hola como te va', '2015-06-12 00:29:19', 1),
+(10, 3, 'maximendivil22@gmail.com', 'esta medio flashado el dia y la hora no se porque..', '2015-06-12 00:29:39', 1),
+(12, 3, 'maximendivil22@gmail.com', 'aaaaaaaaa', '2015-06-12 00:46:05', 1),
+(14, 3, 'maximendivil22@gmail.com', 'hola como te va', '2015-06-12 18:21:28', 1),
+(19, 3, 'a@a.com', 'hola soy el admin.. chupenme las bolas', '2015-06-12 18:54:48', 1),
 (20, 3, 'a@a.com', 'hola', '2015-06-12 19:01:02', 0),
 (21, 3, 'a@a.com', 'hola', '2015-06-12 19:01:06', 1),
 (22, 3, 'a@a.com', 'pepe', '2015-06-12 19:10:08', 1),
-(23, 3, 'a@a.com', 'pepe', '2015-06-12 19:10:11', 1);
+(23, 3, 'a@a.com', 'pepe', '2015-06-12 19:10:11', 1),
+(24, 3, 'maximendivil22@gmail.com', 'Ah... sos el admin??? Sos alto tragaleche', '2015-06-13 00:15:54', 1),
+(25, 3, 'a@a.com', 'Borro comentarios porque soy un crack', '2015-06-13 00:17:31', 0),
+(26, 3, 'a@a.com', 'Borro comentarios porque soy un crack', '2015-06-13 00:17:36', 1),
+(27, 3, 'a@a.com', 'Borro comentarios porque soy un crack', '2015-06-13 00:17:42', 1),
+(28, 3, 'maximendivil22@gmail.com', 'Borrame esta pedazo de forro', '2015-06-13 00:35:40', 0),
+(29, 3, 'maximendivil22@gmail.com', 'Borrame esta pedazo de forro', '2015-06-13 00:41:16', 0),
+(30, 3, 'maximendivil22@gmail.com', 'Borrame esta pedazo de forro', '2015-06-13 00:41:46', 0);
 
 -- --------------------------------------------------------
 
@@ -130,7 +137,7 @@ INSERT INTO `comentario` (`idComentario`, `idPublicacion`, `idRegistrado`, `cont
 --
 
 CREATE TABLE IF NOT EXISTS `imagen` (
-  `idImagen` int(4) NOT NULL,
+`idImagen` int(4) NOT NULL,
   `ancho` int(6) NOT NULL,
   `alto` int(6) NOT NULL,
   `tipo` varchar(15) NOT NULL,
@@ -154,14 +161,14 @@ INSERT INTO `imagen` (`idImagen`, `ancho`, `alto`, `tipo`, `contenido`, `idPubli
 --
 
 CREATE TABLE IF NOT EXISTS `oferta` (
-  `idOferta` int(3) NOT NULL,
-  `motivo` varchar(100) NOT NULL,
+`idOferta` int(3) NOT NULL,
+  `motivo` varchar(255) NOT NULL,
   `monto` int(6) NOT NULL,
   `fechaRealizacion` date NOT NULL,
   `posibleGanadora` int(1) NOT NULL DEFAULT '0',
   `ganadora` int(1) NOT NULL DEFAULT '0',
-  `idPublicacion` int(4) NOT NULL,
-  `idRegistrado` varchar(50) NOT NULL
+  `idRegistrado` varchar(50) NOT NULL,
+  `idPublicacion` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -172,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `oferta` (
 
 CREATE TABLE IF NOT EXISTS `pais` (
   `nombre` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `pais_id` int(3) NOT NULL,
+`pais_id` int(3) NOT NULL,
   `code` varchar(3) CHARACTER SET ascii NOT NULL,
   `continente` varchar(2) CHARACTER SET ascii NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=latin1;
@@ -435,7 +442,7 @@ INSERT INTO `pais` (`nombre`, `pais_id`, `code`, `continente`) VALUES
 
 CREATE TABLE IF NOT EXISTS `provincia` (
   `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `provincia_id` int(10) NOT NULL,
+`provincia_id` int(10) NOT NULL,
   `codep` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3470 DEFAULT CHARSET=latin1;
 
@@ -2216,7 +2223,8 @@ INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('Central Province', 1770, 'LK'),
 ('North Central Province', 1771, 'LK'),
 ('North Eastern Province', 1772, 'LK'),
-('North Western Province', 1773, 'LK'),
+('North Western Province', 1773, 'LK');
+INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('Province of Sabaragamuwa', 1774, 'LK'),
 ('Province of Uva', 1775, 'LK'),
 ('Southern Province', 1776, 'LK'),
@@ -2259,8 +2267,7 @@ INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('ï»¿de Diekirch', 1813, 'LU'),
 ('de Grevenmacher', 1814, 'LU'),
 ('de Luxembourg', 1815, 'LU'),
-('ï»¿Aizkraukles Rajons', 1816, 'LV');
-INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
+('ï»¿Aizkraukles Rajons', 1816, 'LV'),
 ('AlÅ«ksnes Rajons', 1817, 'LV'),
 ('Balvu Rajons', 1818, 'LV'),
 ('Bauskas Rajons', 1819, 'LV'),
@@ -3733,7 +3740,8 @@ INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('Rivera', 3286, 'UY'),
 ('Rocha', 3287, 'UY'),
 ('Salto', 3288, 'UY'),
-('San JosÃ©', 3289, 'UY'),
+('San JosÃ©', 3289, 'UY');
+INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('Soriano', 3290, 'UY'),
 ('TacuarembÃ³', 3291, 'UY'),
 ('Treinta y Tres', 3292, 'UY'),
@@ -3839,8 +3847,7 @@ INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('Tá»‰nh TÃ¢y Ninh', 3392, 'VN'),
 ('Tá»‰nh Thanh HÃ³a', 3393, 'VN'),
 ('Tá»‰nh ThÃ¡i BÃ¬nh', 3394, 'VN'),
-('Tá»‰nh ThÃ¡i NguyÃªn', 3395, 'VN');
-INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
+('Tá»‰nh ThÃ¡i NguyÃªn', 3395, 'VN'),
 ('Tá»‰nh Thá»«a ThiÃªn-Huáº¿', 3396, 'VN'),
 ('Tá»‰nh Tiá»n Giang', 3397, 'VN'),
 ('Tá»‰nh TrÃ  Vinh', 3398, 'VN'),
@@ -3923,7 +3930,7 @@ INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `publicacion` (
-  `numeroPublicacion` int(20) NOT NULL,
+`numeroPublicacion` int(20) NOT NULL,
   `categoria` int(4) NOT NULL,
   `titulo` varchar(50) NOT NULL,
   `fechaCreacion` date NOT NULL,
@@ -4025,67 +4032,67 @@ INSERT INTO `usuario` (`email`, `password`, `tipo`) VALUES
 -- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`idCategoria`), ADD UNIQUE KEY `nombre` (`nombre`);
+ ADD PRIMARY KEY (`idCategoria`), ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `categoria-publicacion`
 --
 ALTER TABLE `categoria-publicacion`
-  ADD UNIQUE KEY `numeroPublicacion` (`idPublicacion`,`idCategoria`), ADD UNIQUE KEY `idPublicacion` (`idPublicacion`,`idCategoria`), ADD KEY `idCategoria` (`idCategoria`);
+ ADD UNIQUE KEY `numeroPublicacion` (`idPublicacion`,`idCategoria`), ADD UNIQUE KEY `idPublicacion` (`idPublicacion`,`idCategoria`), ADD KEY `idCategoria` (`idCategoria`);
 
 --
 -- Indices de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  ADD PRIMARY KEY (`idComentario`), ADD KEY `idPublicacion` (`idPublicacion`,`idRegistrado`), ADD KEY `idRegistrado` (`idRegistrado`);
+ ADD PRIMARY KEY (`idComentario`), ADD KEY `idPublicacion` (`idPublicacion`,`idRegistrado`), ADD KEY `idRegistrado` (`idRegistrado`);
 
 --
 -- Indices de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-  ADD PRIMARY KEY (`idImagen`), ADD KEY `idPublicacion` (`idPublicacion`);
+ ADD PRIMARY KEY (`idImagen`), ADD KEY `idPublicacion` (`idPublicacion`);
 
 --
 -- Indices de la tabla `oferta`
 --
 ALTER TABLE `oferta`
-  ADD PRIMARY KEY (`idOferta`), ADD UNIQUE KEY `idPublicacion` (`idPublicacion`), ADD UNIQUE KEY `idRegistrado` (`idRegistrado`);
+ ADD PRIMARY KEY (`idOferta`), ADD KEY `idRegistrado` (`idRegistrado`), ADD KEY `idPublicacion` (`idPublicacion`);
 
 --
 -- Indices de la tabla `pais`
 --
 ALTER TABLE `pais`
-  ADD PRIMARY KEY (`pais_id`);
+ ADD PRIMARY KEY (`pais_id`);
 
 --
 -- Indices de la tabla `provincia`
 --
 ALTER TABLE `provincia`
-  ADD PRIMARY KEY (`provincia_id`);
+ ADD PRIMARY KEY (`provincia_id`);
 
 --
 -- Indices de la tabla `publicacion`
 --
 ALTER TABLE `publicacion`
-  ADD PRIMARY KEY (`numeroPublicacion`), ADD KEY `categoria` (`categoria`), ADD KEY `usuario` (`usuario`);
+ ADD PRIMARY KEY (`numeroPublicacion`), ADD KEY `categoria` (`categoria`), ADD KEY `usuario` (`usuario`);
 
 --
 -- Indices de la tabla `registrado`
 --
 ALTER TABLE `registrado`
-  ADD PRIMARY KEY (`email`), ADD UNIQUE KEY `dni` (`dni`), ADD KEY `index_pais` (`paisID`), ADD KEY `tarjeta` (`tarjeta`), ADD KEY `provinciaID` (`provinciaID`);
+ ADD PRIMARY KEY (`email`), ADD UNIQUE KEY `dni` (`dni`), ADD KEY `index_pais` (`paisID`), ADD KEY `tarjeta` (`tarjeta`), ADD KEY `provinciaID` (`provinciaID`);
 
 --
 -- Indices de la tabla `tarjeta`
 --
 ALTER TABLE `tarjeta`
-  ADD PRIMARY KEY (`numero`);
+ ADD PRIMARY KEY (`numero`);
 
 --
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`email`);
+ ADD PRIMARY KEY (`email`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -4095,37 +4102,37 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idCategoria` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `idCategoria` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `idComentario` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+MODIFY `idComentario` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-  MODIFY `idImagen` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `idImagen` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `oferta`
 --
 ALTER TABLE `oferta`
-  MODIFY `idOferta` int(3) NOT NULL AUTO_INCREMENT;
+MODIFY `idOferta` int(3) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `pais`
 --
 ALTER TABLE `pais`
-  MODIFY `pais_id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=245;
+MODIFY `pais_id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=245;
 --
 -- AUTO_INCREMENT de la tabla `provincia`
 --
 ALTER TABLE `provincia`
-  MODIFY `provincia_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3470;
+MODIFY `provincia_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3470;
 --
 -- AUTO_INCREMENT de la tabla `publicacion`
 --
 ALTER TABLE `publicacion`
-  MODIFY `numeroPublicacion` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `numeroPublicacion` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Restricciones para tablas volcadas
 --
@@ -4153,7 +4160,6 @@ ADD CONSTRAINT `imagen_ibfk_1` FOREIGN KEY (`idPublicacion`) REFERENCES `publica
 -- Filtros para la tabla `oferta`
 --
 ALTER TABLE `oferta`
-ADD CONSTRAINT `oferta_ibfk_1` FOREIGN KEY (`idPublicacion`) REFERENCES `publicacion` (`numeroPublicacion`),
 ADD CONSTRAINT `oferta_ibfk_2` FOREIGN KEY (`idRegistrado`) REFERENCES `registrado` (`email`);
 
 --

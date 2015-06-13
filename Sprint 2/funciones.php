@@ -538,4 +538,28 @@ function eliminarComentario($idComentario){
 
 	Database::disconnect();
 }
+
+function usuarioCreadorPublicacion($idComentario){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT p.usuario FROM comentario c INNER JOIN publicacion p on (c.idPublicacion = p.numeroPublicacion)")or die("Fallo al buscar el creador de la publicacion");
+	$usuario = mysqli_fetch_row($resultado);
+
+	Database::disconnect();
+
+	return $usuario[0];
+}
+
+function agregarOferta($idPublicacion,$usuario,$monto,$motivo){
+
+	$link = Database::connect();
+
+	$creacion = date('y/m/d');
+
+	mysqli_query($link,"INSERT INTO oferta(motivo,monto,fechaRealizacion,idPublicacion,idRegistrado) VALUES('$motivo',$monto,'$creacion','$idPublicacion','$usuario')")or die("Fallo al crear una oferta");
+
+	Database::disconnect();
+}
+
 ?>

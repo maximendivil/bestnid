@@ -7,6 +7,7 @@
 	if(isset($_GET['id'])){
 		$rows = obtenerPublicacion($_GET['id']);
 		if (count($rows)>0){
+					$idPublicacion = $_GET['id'];
 					$idImagen = buscarImagenPublicacion($_GET['id']);
 					$titulo = $rows['titulo'];
 					$descripcion = $rows['descripcion'];
@@ -29,7 +30,7 @@
 <div class="container col-md-8">
 
         
-<div class="col-md-9">
+<div class="col-md-12">
                 <div class="thumbnail">
 					<div id="carousel-example-generic" class="carousel slide">
                             <ol class="carousel-indicators">
@@ -59,10 +60,14 @@
                         <h4 class="pull-right"></h4>
                         <h3><?php echo $titulo; ?></h3>
                         <p><?php echo $descripcion; ?></p>
-						<div class="text-center"><a class="btn btn-success">OFERTAR!</a></div>
+						<div class="text-center"><a class="btn btn-success" href="ofertar.php?idPublicacion=<?php echo $idPublicacion ; ?>" <?php if(!isset($_SESSION['usuario'])){ $_SESSION["exito"] = "<div class='alert alert-info'><p style='color: grey ; text-align: center'>Queres hacer una oferta? <a href='registrarse.php'>Registrate</a> o <a href='login.php'>Inicia sesion</a></p></div>"; echo 'disabled';} ?>>OFERTAR!</a></div>
                     </div>
                 </div>
-
+                <?php
+			    	echo "<br>";
+			    	echo $_SESSION["exito"];
+			    	$_SESSION["exito"] = "";
+			    ?>
                 <div class="well">
 
                     <div class="text-right">
@@ -87,18 +92,33 @@
 							if(!isset($_SESSION['usuario'])){
 									echo "<div class='alert alert-info'><p style='color: grey ; text-align: center'>Queres hacer una pregunta? <a href='registrarse.php'>Registrate</a> o <a href='login.php'>Inicia sesion</a></p></div>";
 								}
-							for ($i=0; $i < count($rows); $i++){
+							for ($i=0; $i < count($rows); $i++){								
 								$idComentario = $rows[$i]['idComentario'];
-								echo "<div class='row'>";
-								echo "<div class='col-md-12'>";
-								echo $rows[$i]['idRegistrado'];
-								echo "<span class='pull-right'>".$rows[$i]['fecha']."";
-								if ( (isset($_SESSION['usuario'])) AND($_SESSION['tipouser'] == 1) ){
-									echo " <a href='eliminar_comentario.php?id=$idComentario' data-toggle='tooltip' title='Eliminar comentario'><span class='glyphicon glyphicon-remove'></span></a>";
+								$dueñoPublicacion = usuarioCreadorPublicacion($idComentario);
+								if($dueñoPublicacion == $rows[$i]["idRegistrado"]){
+									echo "<div class='row'>";
+									echo "<div class='col-md-6' style='float: right ; border: 1px solid green ; border-radius: 15px'>";
+									echo $rows[$i]['idRegistrado'];
+									echo "<span class='pull-right'>".$rows[$i]['fecha']."";
+									if ( (isset($_SESSION['usuario'])) AND($_SESSION['tipouser'] == 1) ){
+										echo " <a href='eliminar_comentario.php?id=$idComentario' data-toggle='tooltip' title='Eliminar comentario'><span class='glyphicon glyphicon-remove'></span></a>";
+									}
+									echo "</span>";
+									echo "<p>".$rows[$i]['contenido']."</p>";
+									echo "</div></div><hr>";
 								}
-								echo "</span>";
-								echo "<p>".$rows[$i]['contenido']."</p>";
-								echo "</div></div><hr>";
+								else {
+									echo "<div class='row'>";
+									echo "<div class='col-md-6' style='float: left ; border: 1px solid red ; border-radius: 15px'>";
+									echo $rows[$i]['idRegistrado'];
+									echo "<span class='pull-right'>".$rows[$i]['fecha']."";
+									if ( (isset($_SESSION['usuario'])) AND($_SESSION['tipouser'] == 1) ){
+										echo " <a href='eliminar_comentario.php?id=$idComentario' data-toggle='tooltip' title='Eliminar comentario'><span class='glyphicon glyphicon-remove'></span></a>";
+									}
+									echo "</span>";
+									echo "<p>".$rows[$i]['contenido']."</p>";
+									echo "</div></div><hr>";
+								}
 							}
 						}else{
 							echo "<div class='row'>";
@@ -115,6 +135,8 @@
                 </div>
 
             </div></div>
+            <div class="col-md-2">
+            </div>
     <!-- /.container -->
 
     
