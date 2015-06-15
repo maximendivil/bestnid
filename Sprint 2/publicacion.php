@@ -57,13 +57,28 @@
                             </a>
                         </div>
                     <div class="caption-full">
-                        <h4 class="pull-right"></h4>
+                        <p class="pull-right">Finaliza en <?php echo diasRestantes($fechaFinalizacion); ?> dias</p>
                         <h3><?php echo $titulo; ?></h3>
                         <p><?php echo $descripcion; ?></p>
-						<div class="text-center"><a class="btn btn-success" href="ofertar.php?idPublicacion=<?php echo $idPublicacion ; ?>" <?php if(!isset($_SESSION['usuario'])){ $_SESSION["exito"] = "<div class='alert alert-info'><p style='color: grey ; text-align: center'>Queres hacer una oferta? <a href='registrarse.php'>Registrate</a> o <a href='login.php'>Inicia sesion</a></p></div>"; echo 'disabled';} ?>>OFERTAR!</a></div>
+						<?php
+							if(isset($_SESSION['usuario'])){
+								if($_SESSION['usuario'] != $usuario){
+									$rows = verificarOfertaRealizada($idPublicacion, $_SESSION['usuario']);
+									if(count($rows) == 0){
+										echo "<div class='text-center'><a class='btn btn-success' href='ofertar.php?idPublicacion=$idPublicacion'>OFERTAR!</a></div>";
+									}else{
+										echo "<div class='text-center'><div class='alert alert-info'><p style='color: grey ; text-align: center'>Ya ofertaste en esta publicacion... Mucha suerte!</div></div>";
+									}
+								}else{
+									echo "<div class='text-center'><a class='btn btn-success' href='ofertar.php?idPublicacion=$idPublicacion' disabled>OFERTAR!</a></div>";
+								}
+							}else{
+								echo "<div class='text-center'><div class='alert alert-info'><p style='color: grey ; text-align: center'>Queres realizar una oferta o pregunta? <a href='registrarse.php'>Registrate</a> o <a href='login.php'>Inicia sesion</a></p></div></div>";
+							}
+						?>
                     </div>
                 </div>
-                <?php
+				 <?php
 			    	echo "<br>";
 			    	echo $_SESSION["exito"];
 			    	$_SESSION["exito"] = "";
@@ -89,9 +104,6 @@
 					<?php
 						$rows = obtenerComentarios($_GET['id']);
 						if(count($rows)>0){
-							if(!isset($_SESSION['usuario'])){
-									echo "<div class='alert alert-info'><p style='color: grey ; text-align: center'>Queres hacer una pregunta? <a href='registrarse.php'>Registrate</a> o <a href='login.php'>Inicia sesion</a></p></div>";
-								}
 							for ($i=0; $i < count($rows); $i++){								
 								$idComentario = $rows[$i]['idComentario'];
 								$dueñoPublicacion = usuarioCreadorPublicacion($idComentario);

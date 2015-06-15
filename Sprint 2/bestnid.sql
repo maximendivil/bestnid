@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.3.11
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-06-2015 a las 03:31:29
--- Versión del servidor: 5.6.21
--- Versión de PHP: 5.6.3
+-- Tiempo de generación: 15-06-2015 a las 18:39:55
+-- Versión del servidor: 5.6.24
+-- Versión de PHP: 5.6.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -51,7 +51,7 @@ INSERT INTO `administrador` (`email`, `password`, `fechaAlta`) VALUES
 
 CREATE TABLE IF NOT EXISTS `categoria` (
   `nombre` varchar(50) NOT NULL,
-`idCategoria` int(10) NOT NULL,
+  `idCategoria` int(10) NOT NULL,
   `borrado` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `categoria-publicacion` (
 --
 
 CREATE TABLE IF NOT EXISTS `comentario` (
-`idComentario` int(4) NOT NULL,
+  `idComentario` int(4) NOT NULL,
   `idPublicacion` int(4) NOT NULL,
   `idRegistrado` varchar(50) NOT NULL,
   `contenido` varchar(144) NOT NULL,
@@ -128,7 +128,7 @@ INSERT INTO `comentario` (`idComentario`, `idPublicacion`, `idRegistrado`, `cont
 (27, 3, 'a@a.com', 'Borro comentarios porque soy un crack', '2015-06-13 00:17:42', 1),
 (28, 3, 'maximendivil22@gmail.com', 'Borrame esta pedazo de forro', '2015-06-13 00:35:40', 0),
 (29, 3, 'maximendivil22@gmail.com', 'Borrame esta pedazo de forro', '2015-06-13 00:41:16', 0),
-(30, 3, 'maximendivil22@gmail.com', 'Borrame esta pedazo de forro', '2015-06-13 00:41:46', 0);
+(30, 3, 'maximendivil22@gmail.com', 'Borrame esta pedazo de forro', '2015-06-13 00:41:46', 1);
 
 -- --------------------------------------------------------
 
@@ -137,7 +137,7 @@ INSERT INTO `comentario` (`idComentario`, `idPublicacion`, `idRegistrado`, `cont
 --
 
 CREATE TABLE IF NOT EXISTS `imagen` (
-`idImagen` int(4) NOT NULL,
+  `idImagen` int(4) NOT NULL,
   `ancho` int(6) NOT NULL,
   `alto` int(6) NOT NULL,
   `tipo` varchar(15) NOT NULL,
@@ -161,7 +161,7 @@ INSERT INTO `imagen` (`idImagen`, `ancho`, `alto`, `tipo`, `contenido`, `idPubli
 --
 
 CREATE TABLE IF NOT EXISTS `oferta` (
-`idOferta` int(3) NOT NULL,
+  `idOferta` int(3) NOT NULL,
   `motivo` varchar(255) NOT NULL,
   `monto` int(6) NOT NULL,
   `fechaRealizacion` date NOT NULL,
@@ -169,7 +169,14 @@ CREATE TABLE IF NOT EXISTS `oferta` (
   `ganadora` int(1) NOT NULL DEFAULT '0',
   `idRegistrado` varchar(50) NOT NULL,
   `idPublicacion` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `oferta`
+--
+
+INSERT INTO `oferta` (`idOferta`, `motivo`, `monto`, `fechaRealizacion`, `posibleGanadora`, `ganadora`, `idRegistrado`, `idPublicacion`) VALUES
+(5, 'Me gustaria tener esta notebook porque quiero viciar a los jueguitos todo el dia y soy pobre.', 500, '2015-06-13', 0, 0, 'aserena92@gmail.com', 3);
 
 -- --------------------------------------------------------
 
@@ -179,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `oferta` (
 
 CREATE TABLE IF NOT EXISTS `pais` (
   `nombre` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-`pais_id` int(3) NOT NULL,
+  `pais_id` int(3) NOT NULL,
   `code` varchar(3) CHARACTER SET ascii NOT NULL,
   `continente` varchar(2) CHARACTER SET ascii NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=latin1;
@@ -442,7 +449,7 @@ INSERT INTO `pais` (`nombre`, `pais_id`, `code`, `continente`) VALUES
 
 CREATE TABLE IF NOT EXISTS `provincia` (
   `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-`provincia_id` int(10) NOT NULL,
+  `provincia_id` int(10) NOT NULL,
   `codep` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3470 DEFAULT CHARSET=latin1;
 
@@ -2223,8 +2230,7 @@ INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('Central Province', 1770, 'LK'),
 ('North Central Province', 1771, 'LK'),
 ('North Eastern Province', 1772, 'LK'),
-('North Western Province', 1773, 'LK');
-INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
+('North Western Province', 1773, 'LK'),
 ('Province of Sabaragamuwa', 1774, 'LK'),
 ('Province of Uva', 1775, 'LK'),
 ('Southern Province', 1776, 'LK'),
@@ -2267,7 +2273,8 @@ INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('ï»¿de Diekirch', 1813, 'LU'),
 ('de Grevenmacher', 1814, 'LU'),
 ('de Luxembourg', 1815, 'LU'),
-('ï»¿Aizkraukles Rajons', 1816, 'LV'),
+('ï»¿Aizkraukles Rajons', 1816, 'LV');
+INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('AlÅ«ksnes Rajons', 1817, 'LV'),
 ('Balvu Rajons', 1818, 'LV'),
 ('Bauskas Rajons', 1819, 'LV'),
@@ -3740,8 +3747,7 @@ INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('Rivera', 3286, 'UY'),
 ('Rocha', 3287, 'UY'),
 ('Salto', 3288, 'UY'),
-('San JosÃ©', 3289, 'UY');
-INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
+('San JosÃ©', 3289, 'UY'),
 ('Soriano', 3290, 'UY'),
 ('TacuarembÃ³', 3291, 'UY'),
 ('Treinta y Tres', 3292, 'UY'),
@@ -3847,7 +3853,8 @@ INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('Tá»‰nh TÃ¢y Ninh', 3392, 'VN'),
 ('Tá»‰nh Thanh HÃ³a', 3393, 'VN'),
 ('Tá»‰nh ThÃ¡i BÃ¬nh', 3394, 'VN'),
-('Tá»‰nh ThÃ¡i NguyÃªn', 3395, 'VN'),
+('Tá»‰nh ThÃ¡i NguyÃªn', 3395, 'VN');
+INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 ('Tá»‰nh Thá»«a ThiÃªn-Huáº¿', 3396, 'VN'),
 ('Tá»‰nh Tiá»n Giang', 3397, 'VN'),
 ('Tá»‰nh TrÃ  Vinh', 3398, 'VN'),
@@ -3930,7 +3937,7 @@ INSERT INTO `provincia` (`nombre`, `provincia_id`, `codep`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `publicacion` (
-`numeroPublicacion` int(20) NOT NULL,
+  `numeroPublicacion` int(20) NOT NULL,
   `categoria` int(4) NOT NULL,
   `titulo` varchar(50) NOT NULL,
   `fechaCreacion` date NOT NULL,
@@ -3978,6 +3985,7 @@ CREATE TABLE IF NOT EXISTS `registrado` (
 
 INSERT INTO `registrado` (`nombre`, `apellido`, `dni`, `email`, `fechaAlta`, `fechaNacimiento`, `sexo`, `calle`, `numCalle`, `departamento`, `piso`, `localidad`, `paisID`, `provinciaID`, `tarjeta`) VALUES
 ('Admin', 'istrador', 12345678, 'a@a.com', '2015-05-01', '1992-08-01', 'M', '369', 568, NULL, NULL, 'Ranelagh', 12, 190, 1111111111111111),
+('Agustin', 'Serena', 36899257, 'aserena92@gmail.com', '2015-06-13', '1992-08-01', 'M', '369', 568, '', 0, 'Ranelagh', 12, 198, 5555444499997777),
 ('Maximiliano', 'Mendivil', 36734753, 'maximendivil22@gmail.com', '2015-05-27', '1993-01-02', 'M', '17 e/ 527 y 528', 393, '', 0, 'La Plata', 12, 198, 1111222233334445);
 
 -- --------------------------------------------------------
@@ -4002,7 +4010,8 @@ CREATE TABLE IF NOT EXISTS `tarjeta` (
 
 INSERT INTO `tarjeta` (`numero`, `codSeguridad`, `empresa`, `banco`, `nombre`, `apellido`, `fechaVencimiento`) VALUES
 (1111111111111111, 1233, 'Visa', 'Santander RÃo', 'Admin', 'istrador', '01/2018'),
-(1111222233334445, 1234, 'VISA', 'Santander RÃ­o', 'Maximiliano', 'Mendivil', '01/2016');
+(1111222233334445, 1234, 'VISA', 'Santander RÃ­o', 'Maximiliano', 'Mendivil', '01/2016'),
+(5555444499997777, 123, 'VISA', 'Santander RÃ­o', 'Agustin', 'Serena', '07/2050');
 
 -- --------------------------------------------------------
 
@@ -4022,6 +4031,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`email`, `password`, `tipo`) VALUES
 ('a@a.com', '123', 1),
+('aserena92@gmail.com', '123', 0),
 ('maximendivil22@gmail.com', '123', 0);
 
 --
@@ -4032,67 +4042,67 @@ INSERT INTO `usuario` (`email`, `password`, `tipo`) VALUES
 -- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
- ADD PRIMARY KEY (`idCategoria`), ADD UNIQUE KEY `nombre` (`nombre`);
+  ADD PRIMARY KEY (`idCategoria`), ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `categoria-publicacion`
 --
 ALTER TABLE `categoria-publicacion`
- ADD UNIQUE KEY `numeroPublicacion` (`idPublicacion`,`idCategoria`), ADD UNIQUE KEY `idPublicacion` (`idPublicacion`,`idCategoria`), ADD KEY `idCategoria` (`idCategoria`);
+  ADD UNIQUE KEY `numeroPublicacion` (`idPublicacion`,`idCategoria`), ADD UNIQUE KEY `idPublicacion` (`idPublicacion`,`idCategoria`), ADD KEY `idCategoria` (`idCategoria`);
 
 --
 -- Indices de la tabla `comentario`
 --
 ALTER TABLE `comentario`
- ADD PRIMARY KEY (`idComentario`), ADD KEY `idPublicacion` (`idPublicacion`,`idRegistrado`), ADD KEY `idRegistrado` (`idRegistrado`);
+  ADD PRIMARY KEY (`idComentario`), ADD KEY `idPublicacion` (`idPublicacion`,`idRegistrado`), ADD KEY `idRegistrado` (`idRegistrado`);
 
 --
 -- Indices de la tabla `imagen`
 --
 ALTER TABLE `imagen`
- ADD PRIMARY KEY (`idImagen`), ADD KEY `idPublicacion` (`idPublicacion`);
+  ADD PRIMARY KEY (`idImagen`), ADD KEY `idPublicacion` (`idPublicacion`);
 
 --
 -- Indices de la tabla `oferta`
 --
 ALTER TABLE `oferta`
- ADD PRIMARY KEY (`idOferta`), ADD KEY `idRegistrado` (`idRegistrado`), ADD KEY `idPublicacion` (`idPublicacion`);
+  ADD PRIMARY KEY (`idOferta`), ADD KEY `idRegistrado` (`idRegistrado`), ADD KEY `idPublicacion` (`idPublicacion`);
 
 --
 -- Indices de la tabla `pais`
 --
 ALTER TABLE `pais`
- ADD PRIMARY KEY (`pais_id`);
+  ADD PRIMARY KEY (`pais_id`);
 
 --
 -- Indices de la tabla `provincia`
 --
 ALTER TABLE `provincia`
- ADD PRIMARY KEY (`provincia_id`);
+  ADD PRIMARY KEY (`provincia_id`);
 
 --
 -- Indices de la tabla `publicacion`
 --
 ALTER TABLE `publicacion`
- ADD PRIMARY KEY (`numeroPublicacion`), ADD KEY `categoria` (`categoria`), ADD KEY `usuario` (`usuario`);
+  ADD PRIMARY KEY (`numeroPublicacion`), ADD KEY `categoria` (`categoria`), ADD KEY `usuario` (`usuario`);
 
 --
 -- Indices de la tabla `registrado`
 --
 ALTER TABLE `registrado`
- ADD PRIMARY KEY (`email`), ADD UNIQUE KEY `dni` (`dni`), ADD KEY `index_pais` (`paisID`), ADD KEY `tarjeta` (`tarjeta`), ADD KEY `provinciaID` (`provinciaID`);
+  ADD PRIMARY KEY (`email`), ADD UNIQUE KEY `dni` (`dni`), ADD KEY `index_pais` (`paisID`), ADD KEY `tarjeta` (`tarjeta`), ADD KEY `provinciaID` (`provinciaID`);
 
 --
 -- Indices de la tabla `tarjeta`
 --
 ALTER TABLE `tarjeta`
- ADD PRIMARY KEY (`numero`);
+  ADD PRIMARY KEY (`numero`);
 
 --
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
- ADD PRIMARY KEY (`email`);
+  ADD PRIMARY KEY (`email`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -4102,37 +4112,37 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-MODIFY `idCategoria` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `idCategoria` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-MODIFY `idComentario` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+  MODIFY `idComentario` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-MODIFY `idImagen` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `idImagen` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `oferta`
 --
 ALTER TABLE `oferta`
-MODIFY `idOferta` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `idOferta` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `pais`
 --
 ALTER TABLE `pais`
-MODIFY `pais_id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=245;
+  MODIFY `pais_id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=245;
 --
 -- AUTO_INCREMENT de la tabla `provincia`
 --
 ALTER TABLE `provincia`
-MODIFY `provincia_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3470;
+  MODIFY `provincia_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3470;
 --
 -- AUTO_INCREMENT de la tabla `publicacion`
 --
 ALTER TABLE `publicacion`
-MODIFY `numeroPublicacion` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `numeroPublicacion` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Restricciones para tablas volcadas
 --

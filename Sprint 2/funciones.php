@@ -562,4 +562,79 @@ function agregarOferta($idPublicacion,$usuario,$monto,$motivo){
 	Database::disconnect();
 }
 
+function verificarOfertaRealizada($idPublicacion,$usuario){
+	
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT * FROM oferta WHERE idPublicacion=$idPublicacion AND idRegistrado='$usuario'")or die("Fallo en verificar ofertas realizadas");
+	$rows = mysqli_fetch_assoc($resultado);
+
+	Database::disconnect();
+
+	return $rows;
+}
+
+function diasRestantes($fecha_final) {
+	$fecha_actual = date("Y-m-d");
+	$s = strtotime($fecha_final)-strtotime($fecha_actual);
+	$d = intval($s/86400);
+	$diferencia = $d;
+	return $diferencia;
+}
+
+function cantidadDeOfertas($idPublicacion){
+	
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT count(idOferta) FROM oferta WHERE idPublicacion=$idPublicacion")or die("Fallo en verificar ofertas realizadas");
+	$cant = mysqli_fetch_row($resultado);
+
+	Database::disconnect();
+
+	return $cant[0];
+}
+
+function obtenerOfertasDePublicacion($idPublicacion){
+	
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT * FROM oferta WHERE idPublicacion=$idPublicacion")or die("Fallo al obtener ofertas");
+	$array = array();
+	while ($rows = mysqli_fetch_assoc($resultado)){
+		array_push($array,$rows);
+	}
+
+	Database::disconnect();
+
+	return $array;
+}
+
+function posibleGanadora($idOferta){
+
+	$link = Database::connect();
+
+	mysqli_query($link,"UPDATE oferta SET posibleGanadora=1 WHERE idOferta=$idOferta") or die("Fallo al actualizar oferta");
+
+	Database::disconnect();
+}
+
+function rechazarOferta($idOferta){
+
+	$link = Database::connect();
+
+	mysqli_query($link,"UPDATE oferta SET posibleGanadora=-1 WHERE idOferta=$idOferta") or die("Fallo al actualizar oferta");
+
+	Database::disconnect();
+}
+
+function recalificarOferta($idOferta){
+
+	$link = Database::connect();
+
+	mysqli_query($link,"UPDATE oferta SET posibleGanadora=0 WHERE idOferta=$idOferta") or die("Fallo al actualizar oferta");
+
+	Database::disconnect();
+}
+
+
 ?>
