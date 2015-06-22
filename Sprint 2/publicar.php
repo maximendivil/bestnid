@@ -9,13 +9,13 @@
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $titulo = test_input($_POST["titulo"]);
-    if (!preg_match("/^[a-zA-Z ]*$/",$titulo)) {
+    if (!preg_match("/^[a-zA-Z0-9 ]*$/",$titulo)) {
       $formValid = 0;
       $tituloErr = "Solo se permiten letras y espacios"; 
     }
 
     $descripcion = test_input($_POST["descripcion"]);
-    if (!preg_match("/^[a-zA-Z0-9,.! ]*$/",$descripcion)) {
+    if (!preg_match("/^[a-zA-Z0-9,. ]*$/",$descripcion)) {
       $formValid = 0;
       $descripcionErr = "Solo se permiten letras, numeros, espacios, y signos(!,.)"; 
     }

@@ -8,7 +8,7 @@
 		$rows = obtenerPublicacion($_GET['id']);
 		if (count($rows)>0){
 					$idPublicacion = $_GET['id'];
-					$idImagen = buscarImagenPublicacion($_GET['id']);
+					$idImagenes = buscarImagenesPublicacion($_GET['id']);
 					$titulo = $rows['titulo'];
 					$descripcion = $rows['descripcion'];
 					$fechaCreacion = $rows['fechaCreacion'];
@@ -40,14 +40,30 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img class="slide-image" src="imagen_mostrar.php?id=<?php echo $idImagen; ?>" alt="">
+                                	<div class="col-md-4">
+                                	</div>
+                                    <img src="imagen_mostrar.php?id=<?php echo $idImagenes[0][0]; ?>" style='width:400 ; height:400'>
+                                    <div class="col-md-4">
+                                	</div>
                                 </div>
-                                <div class="item">
-                                    <img class="slide-image" src="subastas.jpg" alt="">
-                                </div>
-                                <div class="item">
-                                    <img class="slide-image" src="tarjetas.jpg" alt="">
-                                </div>
+                                <?php
+                                	if (count($idImagenes)>1){
+                                		echo "<div class='item'>";
+	                                	echo "<div class='col-md-4'></div>";
+	                                    echo "<img src='imagen_mostrar.php?id=".$idImagenes[1][0]."' style='width:400 ; height:400'>";
+	                                    echo "<div class='col-md-4'></div>";
+	                                    echo "</div>";
+
+	                                    if (count($idImagenes)==3){
+	                                    	echo "<div class='item'>";
+		                                	echo "<div class='col-md-4'></div>";
+		                                    echo "<img src='imagen_mostrar.php?id=".$idImagenes[2][0]."' style='width:400 ; height:400'>";
+		                                    echo "<div class='col-md-4'></div>";
+		                                    echo "</div>";
+	                                    }
+                                	} 
+                                	
+                                ?>
                             </div>
                             <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -58,7 +74,7 @@
                         </div>
                     <div class="caption-full">
                         <p class="pull-right">Finaliza en <?php echo diasRestantes($fechaFinalizacion); ?> dias</p>
-                        <h3><?php echo $titulo; ?></h3>
+                        <h1><?php echo $titulo; ?></h1>
                         <p><?php echo $descripcion; ?></p>
 						<?php
 							if(isset($_SESSION['usuario'])){
@@ -73,6 +89,7 @@
 									echo "<div class='text-center'><a class='btn btn-success' href='ofertar.php?idPublicacion=$idPublicacion' disabled>OFERTAR!</a></div>";
 								}
 							}else{
+								$_SESSION["exito"] = "";
 								echo "<div class='text-center'><div class='alert alert-info'><p style='color: grey ; text-align: center'>Queres realizar una oferta o pregunta? <a href='registrarse.php'>Registrate</a> o <a href='login.php'>Inicia sesion</a></p></div></div>";
 							}
 						?>
@@ -83,6 +100,7 @@
 			    	echo $_SESSION["exito"];
 			    	$_SESSION["exito"] = "";
 			    ?>
+			    <h2>Comentarios</h2>
                 <div class="well">
 
                     <div class="text-right">

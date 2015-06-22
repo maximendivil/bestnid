@@ -408,6 +408,22 @@ function buscarImagenPublicacion($idPublicacion){
 	return $idImagen[0];
 }
 
+function buscarImagenesPublicacion($idPublicacion){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT idImagen FROM imagen WHERE idPublicacion=$idPublicacion")or die("Fallo al buscar imagen");
+
+	$array = array();
+	while ($rows = mysqli_fetch_row($resultado)){
+		array_push($array,$rows);
+	}
+
+	Database::disconnect();
+
+	return $array;
+}
+
 function obtenerVentasActivas($usuario){
 
 	$link = Database::connect();
@@ -634,6 +650,22 @@ function recalificarOferta($idOferta){
 	mysqli_query($link,"UPDATE oferta SET posibleGanadora=0 WHERE idOferta=$idOferta") or die("Fallo al actualizar oferta");
 
 	Database::disconnect();
+}
+
+function publicacionesIndex(){
+
+	$link = Database::connect();
+
+	$publicaciones = mysqli_query($link,"SELECT * FROM publicacion WHERE finalizada=0 ORDER BY fechaCreacion ASC")or die("Fallo al obtener ultimas publicaciones");
+
+	$array = array();
+	while ($rows = mysqli_fetch_assoc($publicaciones)){
+		array_push($array,$rows);
+	}
+
+	Database::disconnect();
+
+	return $array;
 }
 
 
