@@ -46,6 +46,11 @@ $formValid = 1;
     <div class="container" style="margin-left: 10%">
         <div class="row">
             <form class="form-horizontal" style="padding-top: 2em ; margin-left: 25%" method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
+                <?php
+                    echo "<br>";
+                    echo $_SESSION["exito"];
+                    $_SESSION["exito"] = "";
+                ?>
                 <fieldset>
 
                     <!-- Form Name -->

@@ -156,7 +156,7 @@ function buscarUsuarioPorApellido($busqueda){
 
 
 
-function actualizarDatosUsuario($email,$nombre,$apellido,$pais,$provincia,$localidad,$sexo,$calle,$numCalle,$dpto,$piso){
+function actualizarDatosUsuario($email,$nombre,$apellido,$pais,$provincia,$localidad,$sexo,$calle,$numCalle,$dpto,$piso,$dni,$fechaNac){
 
 	$link = Database::connect();
     $alta = date("y/m/d");
@@ -164,7 +164,7 @@ function actualizarDatosUsuario($email,$nombre,$apellido,$pais,$provincia,$local
     $fila = mysqli_fetch_row($result);
     $pais_id = $fila[0];
     mysqli_free_result($result);
-    mysqli_query($link,"UPDATE registrado SET nombre='$nombre', apellido='$apellido', paisID='$pais_id', provinciaID = '$provincia', localidad='$localidad' , sexo='$sexo', calle='$calle', numCalle='$numCalle', departamento='$dpto', piso='$piso' WHERE email='$email'") or die("Fallo la modificacion de datos.");
+    mysqli_query($link,"UPDATE registrado SET nombre='$nombre', apellido='$apellido', paisID='$pais_id', provinciaID = '$provincia', localidad='$localidad' , sexo='$sexo', calle='$calle', numCalle='$numCalle', departamento='$dpto', piso='$piso', dni='$dni', fechaNacimiento='$fechaNac' WHERE email='$email'") or die("Fallo la modificacion de datos.");
     
     Database::disconnect();
 }
@@ -293,7 +293,7 @@ function consultarCategorias(){
 
 	$link = Database::connect();
 
-	$resultado = mysqli_query($link,"SELECT nombre FROM categoria WHERE borrado = 0 ORDER BY nombre ASC") or die("Fallo al obtener las categorias");
+	$resultado = mysqli_query($link,"SELECT nombre FROM categoria WHERE borrado=0 ORDER BY nombre ASC") or die("Fallo al obtener las categorias");
 	$array = array();
 	while ($rows = mysqli_fetch_row($resultado)){
 		array_push($array, $rows);
@@ -342,7 +342,7 @@ function obtenerUsuarios(){
 
 	$link = Database::connect();
 
-	$resultado = mysqli_query($link,"SELECT * FROM registrado")or die("Fallo al obtener los usuarios del sitio");
+	$resultado = mysqli_query($link,"SELECT * FROM registrado r INNER JOIN usuario u on (r.email=u.email) WHERE u.tipo=0")or die("Fallo al obtener los usuarios del sitio");
 	$array = array();
 	while ($rows = mysqli_fetch_assoc($resultado)){
 		array_push($array,$rows);
@@ -393,6 +393,31 @@ function eliminarCategoria($nombre){
 
 	Database::disconnect();
 
+}
+
+function cantidadPublicacionesCategoria($nombre){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT COUNT(numeroPublicacion) FROM categoria c INNER JOIN publicacion p on (c.idCategoria = p.categoria) WHERE nombre='$nombre' and p.finalizada=0")or die("Fallo al buscar publicaciones de la categoria");
+	$cantidad = mysqli_fetch_row($resultado);
+
+	Database::disconnect();
+
+	return $cantidad[0];
+
+}
+
+function cantidadPublicacionesRegistrado($email){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT COUNT(numeroPublicacion) FROM usuario u INNER JOIN publicacion p on (u.email = p.usuario) WHERE email='$email' and p.finalizada=0")or die("Fallo al buscar publicaciones del usuario");
+	$cantidad = mysqli_fetch_row($resultado);
+
+	Database::disconnect();
+
+	return $cantidad[0];
 }
 
 function buscarImagenPublicacion($idPublicacion){
@@ -472,7 +497,7 @@ function buscarRegistradosEntreFechas($fechaInicial,$fechaFinal){
 
 	$link = Database::connect();
 
-	$resultado = mysqli_query($link,"SELECT * FROM registrado WHERE '$fechaInicial' <= fechaAlta and fechaAlta <= '$fechaFinal'")or die("Fallo al buscar usuarios registrados entre dos fechas");
+	$resultado = mysqli_query($link,"SELECT * FROM registrado r INNER JOIN usuario u on (r.email = u.email) WHERE u.tipo=0 and '$fechaInicial' <= fechaAlta and fechaAlta <= '$fechaFinal'")or die("Fallo al buscar usuarios registrados entre dos fechas");
 	$array = array();
 	while ($rows = mysqli_fetch_assoc($resultado)){
 		array_push($array,$rows);
@@ -484,11 +509,41 @@ function buscarRegistradosEntreFechas($fechaInicial,$fechaFinal){
 
 }
 
+function buscarPublicacionesEntreFechas($fechaInicial,$fechaFinal){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT * FROM publicacion WHERE '$fechaInicial' <= fechaCreacion and fechaCreacion <= '$fechaFinal'")or die("Fallo al buscar publicaciones entre dos fechas");
+	$array = array();
+	while ($rows = mysqli_fetch_assoc($resultado)){
+		array_push($array,$rows);
+	}
+
+	Database::disconnect();
+
+	return $array;
+}
+
+function buscarTodasLasPublicaciones(){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT * FROM publicacion")or die("Fallo al buscar publicaciones");
+	$array = array();
+	while ($rows = mysqli_fetch_assoc($resultado)){
+		array_push($array,$rows);
+	}
+
+	Database::disconnect();
+
+	return $array;
+}
+
 function cantidadRegistrados(){
 
 	$link = Database::connect();
 
-	$resultado = mysqli_query($link,"SELECT COUNT(dni) from registrado r INNER JOIN usuario u on(r.email=u.email) WHERE tipo = 0") or die("Fallo al obtener la cantidad de usuarios registrados");
+	$resultado = mysqli_query($link,"SELECT COUNT(dni) from registrado r INNER JOIN usuario u on(r.email=u.email) WHERE tipo =0 ") or die("Fallo al obtener la cantidad de usuarios registrados");
 	$cant = mysqli_fetch_row($resultado);
 
 	Database::disconnect();
@@ -523,7 +578,7 @@ function obtenerComentarios($idPublicacion){
 	
 	$link = Database::connect();
 	
-	$resultado = mysqli_query($link,"SELECT * FROM comentario WHERE idPublicacion='$idPublicacion' ORDER BY fecha DESC")or die("Fallo la busqueda de comentarios");
+	$resultado = mysqli_query($link,"SELECT * FROM comentario WHERE idPublicacion='$idPublicacion' ORDER BY fecha ASC")or die("Fallo la busqueda de comentarios");
 	$array = array();
 	while ($rows = mysqli_fetch_assoc($resultado)){
 		if($rows['borrado'] == 0) array_push($array,$rows);
@@ -560,6 +615,18 @@ function usuarioCreadorPublicacion($idComentario){
 	$link = Database::connect();
 
 	$resultado = mysqli_query($link,"SELECT p.usuario FROM comentario c INNER JOIN publicacion p on (c.idPublicacion = p.numeroPublicacion)")or die("Fallo al buscar el creador de la publicacion");
+	$usuario = mysqli_fetch_row($resultado);
+
+	Database::disconnect();
+
+	return $usuario[0];
+}
+
+function creadorPublicacion($numeroPublicacion){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT p.usuario FROM registrado r INNER JOIN publicacion p on (r.email = p.usuario) WHERE p.numeroPublicacion = '$numeroPublicacion'")or die("Fallo al buscar el creador de la publicacion");
 	$usuario = mysqli_fetch_row($resultado);
 
 	Database::disconnect();
@@ -625,6 +692,21 @@ function obtenerOfertasDePublicacion($idPublicacion){
 	return $array;
 }
 
+function obtenerComentariosDePublicacion($idPublicacion){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT * FROM comentario WHERE idPublicacion=$idPublicacion and borrado=0 ORDER BY fecha DESC")or die("Fallo al obtener comentarios");
+	$array = array();
+	while ($rows = mysqli_fetch_assoc($resultado)){
+		array_push($array,$rows);
+	}
+
+	Database::disconnect();
+
+	return $array;
+}
+
 function posibleGanadora($idOferta){
 
 	$link = Database::connect();
@@ -656,7 +738,7 @@ function publicacionesIndex(){
 
 	$link = Database::connect();
 
-	$publicaciones = mysqli_query($link,"SELECT * FROM publicacion WHERE finalizada=0 ORDER BY fechaCreacion ASC")or die("Fallo al obtener ultimas publicaciones");
+	$publicaciones = mysqli_query($link,"SELECT * FROM publicacion WHERE finalizada=0 ORDER BY fechaCreacion DESC LIMIT 6")or die("Fallo al obtener ultimas publicaciones");
 
 	$array = array();
 	while ($rows = mysqli_fetch_assoc($publicaciones)){

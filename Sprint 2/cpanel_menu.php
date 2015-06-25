@@ -10,7 +10,7 @@
 			<ul class="dropdown-menu">
             <li><a href="ventas_activas.php">Activas</a></li>
             <li><a href="ventas_finalizadas.php">Finalizadas</a></li>
-            <li><a href="#">Preguntas</a></li>                        
+            <!--<li><a href="preguntas.php">Preguntas</a></li>-->                        
 			</ul>
        </li>
 	   <li class="dropdown">
@@ -41,8 +41,7 @@
 			echo "<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Categorias<span class='caret'></span></a>";
 			echo "<ul class='dropdown-menu'>";
 			echo "<li><a href='agregar_categorias.php'>Agregar categoria</a></li>";
-            echo "<li><a href='eliminar_categorias.php'>Eliminar categoria</a></li>";
-            echo "<li><a href='#'>Reporte de ventas</a></li>";                        
+            echo "<li><a href='eliminar_categorias.php'>Eliminar categoria</a></li>";                      
 			echo "</ul>";
 		echo "</li>";
 		echo "<li class='dropdown'>";
@@ -53,6 +52,7 @@
 			echo "</ul>";
 		echo "</li>";
 		echo "<li><a href='#'>Tutorial</a></li>";
+		echo "<li><a href='reporte_publicaciones.php'>Reporte de ventas</a></li>";
 		echo "</ul>";
 	  }
 	  ?>

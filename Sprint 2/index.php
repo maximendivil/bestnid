@@ -73,108 +73,17 @@
                             echo "</div>";
                             echo "</div>";
                         }
+                        echo "<div class='col-md-4'></div>";
+                        echo "<div class='col-md-4'><p><a href='mostrar_publicaciones.php' type='button' class='btn btn-primary center-block' style='margin-top: 50px'>Ver mas publicaciones</a></p></div>";
+                        echo "<div class='col-md-4'></div>";
                     }
-                    else {
+                    else {                        
                         echo "<div class='alert alert-danger'><p style='text-align: center'>No se han encontrado publicaciones. </p></div>";
+
                     }
                 ?>
+                    
                 </div>
-
-                <!--
-                
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4><a href="#">Titulo</a></h4>
-                                <p>Aqui aparecera la descripcion de cada producto</p>
-                            </div>
-                            <div class="ratings">
-	                            <p>
-	                                <a href="#" type="button" class="btn btn-primary center-block" style="margin-left: 100px; margin-right: 100px; margin-top: -25px">Ver publicacion</a>                                
-	                            </p>
-	                        </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4><a href="#">Titulo</a></h4>
-                                <p>Aqui aparecera la descripcion de cada producto</p>
-                            </div>
-                            <div class="ratings">
-	                            <p>
-	                                <a href="#" type="button" class="btn btn-primary center-block" style="margin-left: 100px; margin-right: 100px; margin-top: -25px">Ver publicacion</a>                                
-	                            </p>
-	                        </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4><a href="#">Titulo</a></h4>
-                                <p>Aqui aparecera la descripcion de cada producto</p>
-                            </div>
-                            <div class="ratings">
-	                            <p>
-	                                <a href="#" type="button" class="btn btn-primary center-block" style="margin-left: 100px; margin-right: 100px; margin-top: -25px">Ver publicacion</a>                                
-	                            </p>
-	                        </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4><a href="#">Titulo</a></h4>
-                                <p>Aqui aparecera la descripcion de cada producto</p>
-                            </div>
-                            <div class="ratings">
-	                            <p>
-	                                <a href="#" type="button" class="btn btn-primary center-block" style="margin-left: 100px; margin-right: 100px; margin-top: -25px">Ver publicacion</a>                                
-	                            </p>
-	                        </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4><a href="#">Titulo</a></h4>
-                                <p>Aqui aparecera la descripcion de cada producto</p>
-                            </div>
-                            <div class="ratings">
-	                            <p>
-	                                <a href="#" type="button" class="btn btn-primary center-block" style="margin-left: 100px; margin-right: 100px; margin-top: -25px">Ver publicacion</a>                                
-	                            </p>
-	                        </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4><a href="#">Titulo</a></h4>
-                                <p>Aqui aparecera la descripcion de cada producto</p>
-                            </div>
-                            <div class="ratings">
-	                            <p>
-	                                <a href="#" type="button" class="btn btn-primary center-block" style="margin-left: 100px; margin-right: 100px; margin-top: -25px">Ver publicacion</a>                                
-	                            </p>
-	                        </div>
-                        </div>
-                    </div>
-
-                    -->
-
                     <!-- <div class="col-sm-4 col-lg-4 col-md-4">
                         <h4><a href="#">Like this template?</a>
                         </h4>

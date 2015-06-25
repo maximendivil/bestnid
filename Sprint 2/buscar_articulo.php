@@ -22,7 +22,7 @@
 			echo "<div class='col-sm-8 col-lg-4 col-md-4'>";
             echo "<div class='thumbnail'>";
             $idImagen = buscarImagenPublicacion($idPublicacion);
-			echo "<img src='imagen_mostrar.php?id=".$idImagen."' width='320' height='150'>";
+			echo "<img src='imagen_mostrar.php?id=".$idImagen."' style='width:250 ; height:250'>";
             echo "<div class='caption'>";
             echo "<h4><a href='#'>".$resultado[$i]["titulo"]."</a></h4>";
             echo "<p>".$resultado[$i]["descripcion"]."</p>";

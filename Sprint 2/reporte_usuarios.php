@@ -12,13 +12,6 @@ if(!isset($_SESSION['usuario'])){
 
 <div class="col-md-8">
 	<form class="form-horizontal" style="padding-top: 1em" method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
-
-	<label class="col-md-2 control-label" for="nombre">Cantidad de usuarios: 
-	<?php
-		$cantUsuarios = cantidadRegistrados();
-		echo $cantUsuarios;
-	?>
-	</label>
 	<label class="col-md-1 control-label" for="nombre">Desde: </label>
 	<div class="col-md-2"><input type="date" id="busqueda" name="fechaInicial" required class="form-control"></div>
 	<label class="col-md-1 control-label" for="nombre">Hasta: </label>

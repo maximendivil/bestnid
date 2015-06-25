@@ -38,7 +38,7 @@ if(isset($_GET['finalizar'])){
 					echo "<td>".$rows[$i]['fechaCreacion']."</td>";
 					echo "<td>".$rows[$i]['fechaFinalizacion']."</td>";
 					echo "<td>$cantOfertas</td>";
-					echo "<td><a href='ofertas_realizadas.php?id=$idPublicacion' data-toggle='tooltip' title='Ver ofertas'><span class='glyphicon glyphicon-heart'></span></a> <a href='publicacion.php?id=$idPublicacion' data-toggle='tooltip' title='Ver publicacion'><span class='glyphicon glyphicon-search'></span></a> <a href='#' data-toggle='tooltip' title='Editar publicacion'><span class='glyphicon glyphicon-edit'></span></a> <a href='?finalizar=".$rows[$i]['numeroPublicacion']."' data-toggle='tooltip' title='Finalizar publicacion'><span class='glyphicon glyphicon-remove'></span></a></td>";
+					echo "<td><a href='ofertas_realizadas.php?id=$idPublicacion' data-toggle='tooltip' title='Ver ofertas'><span class='glyphicon glyphicon-heart'></span></a> <a href='publicacion.php?id=$idPublicacion' data-toggle='tooltip' title='Ver publicacion'><span class='glyphicon glyphicon-search'></span></a><a href='preguntas.php?id=$idPublicacion' data-toggle='tooltip' title='Ver preguntas'><span class='glyphicon glyphicon-question-sign'></span></a> <a href='#' data-toggle='tooltip' title='Editar publicacion'><span class='glyphicon glyphicon-edit'></span></a> <a href='?finalizar=".$rows[$i]['numeroPublicacion']."' data-toggle='tooltip' title='Finalizar publicacion'><span class='glyphicon glyphicon-remove'></span></a></td>";
 					echo "</tr>";	
 				}	
 			}

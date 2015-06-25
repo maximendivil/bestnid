@@ -116,8 +116,9 @@ $fechaVencimiento = $rows['fechaVencimiento'];
                     $num = $_SESSION['tarjeta'];
                     $user = $_SESSION['usuario'];              
                     actualizarTarjeta($numTarjeta,$codSeg,$empresa,$banco,$vencimiento,$nombreTitular,$apellidoTitular,$user,$num);
-                    echo "<script language='javascript'> alert('La informacion de la tarjeta se actualizo correctamente');</script>";
-                    header("refresh: 0.1 ; url = cambiar_tarjeta.php");
+                    $_SESSION["exito"] = "<div class='alert alert-success'><p style='color: green ; text-align: center'>Los datos de la tarjeta han sido modificados exitosamente!</p></div>";
+                    //echo "<script language='javascript'> alert('La informacion de la tarjeta se actualizo correctamente');</script>";
+                    //header("refresh: 0.1 ; url = cambiar_tarjeta.php");
                 }
                 else {
                     $numTarjetaErr = "El número de tarjeta ya se encuenta registrada";
@@ -129,6 +130,11 @@ $fechaVencimiento = $rows['fechaVencimiento'];
 <div class="container" style="margin-left: 10%">
         <div class="row">
             <form class="form-horizontal" style="padding-top: 2em ; margin-left: 25%" method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
+                <?php
+                    echo "<br>";
+                    echo $_SESSION["exito"];
+                    $_SESSION["exito"] = "";
+                ?>
                 <fieldset>
 
                     <!-- Form Name -->

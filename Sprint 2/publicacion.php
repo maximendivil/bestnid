@@ -106,7 +106,22 @@
                     <div class="text-right">
                         <a class="btn btn-success" <?php if(!isset($_SESSION['usuario'])){ echo 'disabled';} ?> data-toggle="popover" title="Realizar pregunta" data-placement="left" data-html="true" 
 						data-content="<form class='form-inline' method='POST' action='<?php echo $_SERVER["PHP_SELF"]; echo '?id='.$_GET['id'].'';?>'><input type='text' name='comentario' style='width: 500px' placeholder='Escriba aqui su pregunta...' class='form-control'>
-						<button class='btn btn-default' type='submit' style='margin-left:5px'>Preguntar!</button></form>">Hacer una pregunta</a>
+						<button class='btn btn-default' type='submit' style='margin-left:5px'>Preguntar!</button></form>">
+						<?php
+							if(!isset($_SESSION['usuario'])){
+								echo "Hacer una pregunta";
+							}
+							else {
+								$dueñoPublicacion = creadorPublicacion($idPublicacion);
+								if ($dueñoPublicacion == $_SESSION['usuario']){
+									echo "Responder preguntas";
+								}
+								else{
+									echo "Hacer una pregunta";
+								}
+							}							
+						?>
+						</a>
                     </div>
 					
 					<script>

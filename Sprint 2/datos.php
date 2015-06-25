@@ -81,6 +81,8 @@ $formValid = 1;
             if ($formValid) {
                     $_SESSION["nombre"] = $_POST["nombre"];
                     $_SESSION["apellido"] = $_POST["apellido"];
+                    $_SESSION["dni"] = $_POST["dni"];
+                    $_SESSION["fechaNac"] = $_POST["fechaNac"];
                     $_SESSION["localidad"] = $_POST["localidad"];
                     $_SESSION["pais"] = $_POST["pais"];
                     $_SESSION["provincia"] = $_POST["provincia"];
@@ -101,9 +103,14 @@ $formValid = 1;
  ?>
     <div class="container" style="margin-left: 10%">
         <div class="row">
-            <form class="form-horizontal" style="padding-top: 2em ; margin-left: 25%" method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
-                <fieldset>
 
+            <form class="form-horizontal" style="padding-top: 2em ; margin-left: 25%" method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
+                <?php
+                        echo "<br>";
+                        echo $_SESSION["exito"];
+                        $_SESSION["exito"] = "";
+                    ?>
+                <fieldset>                    
                     <!-- Form Name -->
                     <legend>Datos personales</legend>
 
@@ -128,7 +135,7 @@ $formValid = 1;
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="fechaNacimiento">Fecha de nacimiento *</label>
                         <div class="col-md-5">
-                            <input id="fechaNac" name="fechaNac" type="date" placeholder="Formato: dd/mm/yy" class="form-control input-md" value="<?php echo $fechaNacimiento ?>" disabled>
+                            <input id="fechaNac" name="fechaNac" type="date" placeholder="Formato: dd/mm/yy" class="form-control input-md" value="<?php echo $fechaNacimiento ?>">
                             <span class="advertencia"><?php echo $fechaNacErr;?></span>
                         </div>
                     </div>
@@ -137,7 +144,7 @@ $formValid = 1;
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="dni">DNI *</label>  
                         <div class="col-md-5">
-                            <input id="dni" name="dni" type="number" placeholder="Escribe tu DNI aqui sin utilizar puntos. Por ej: 12345678" class="form-control input-md" value="<?php echo $dni ?>" disabled>
+                            <input id="dni" name="dni" type="number" placeholder="Escribe tu DNI aqui sin utilizar puntos. Por ej: 12345678" class="form-control input-md" value="<?php echo $dni ?>">
                             <span class="advertencia"><?php echo $dniErr;?></span>
                         </div>
                     </div>
@@ -265,7 +272,8 @@ $formValid = 1;
                     <em>Los campos marcados con * son obligatorios</em>
                     <br>
                     <br>
-                    <button class="btn btn-lg btn-primary center-block" style="padding-left: 15% ; padding-right: 15%" type="submit">Modificar</button>                 
+                    <button class="btn btn-lg btn-primary center-block" style="padding-left: 15% ; padding-right: 15%" type="submit">Modificar</button>
+                                     
                 </fieldset> 
             </form>
         </div>
