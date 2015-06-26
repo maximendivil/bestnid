@@ -14,13 +14,17 @@ if(isset($_GET['finalizar'])){
 
 ?>
 
-<div class="col-md-8">
+<div class="col-sm-1">
+</div>
+<div class="col-md-9 center-block">
 	<form class="form-horizontal" style="padding-top: 1em" method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
 	<label class="col-md-1 control-label" for="nombre">Desde: </label>
 	<div class="col-md-2"><input type="date" id="busqueda" name="fechaInicial" required class="form-control"></div>
 	<label class="col-md-1 control-label" for="nombre">Hasta: </label>
 	<div class="col-md-2"><input type="date" id="busqueda" name="fechaFinal" required class="form-control"></div>
 	 <div class="col-sm-2"><span class="input-group-btn"><button class="btn btn-default" type="submit">Buscar</button></span></div>
+</div>
+<div class="col-sm-1">
 </div>
   	<div class="col-sm-7">
   	<div class="row">

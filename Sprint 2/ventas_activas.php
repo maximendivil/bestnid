@@ -12,17 +12,19 @@ if(isset($_GET['finalizar'])){
 }
 ?>
 
-  	<div class="col-sm-6">
-  	<div class="row">
+  	<div class="col-md-10">
+  	<div class="col-sm-1">
+  	</div>
+  	<div class="row col-md-8">
 	
 	<table class="table table-hover">
     <thead>
       <tr>
-        <th>Publicacion</th>
-        <th>Fecha de publicacion</th>
-        <th>Fecha de finalizacion estimada</th>
-		<th>Ofertas</th>
-		<th>Accion</th>	
+        <th class="col-md-5">Publicacion</th>
+        <th class="col-md-2">Fecha de publicacion</th>
+        <th class="col-md-2">Fecha de finalizacion estimada</th>
+		<th class="col-md-1">Ofertas</th>
+		<th class="col-md-2">Accion</th>	
       </tr>
     </thead>
     <tbody>
@@ -45,6 +47,8 @@ if(isset($_GET['finalizar'])){
 		?>
     </tbody>
   </table>
+  <div class="col-md-2">
+  </div>
   </div>
 
 </form>	

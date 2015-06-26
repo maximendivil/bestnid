@@ -82,6 +82,7 @@
                 $registrado = verificarEmail($email); //Verifica si el usuario ya se encuentra registrado en el sitio
                 if (!($registrado)){
                     $_SESSION["email"] = $_POST["email1"];
+                    $_SESSION["email2"] = $_POST["email2"];
                     $_SESSION["password"] = $_POST["password1"];
                     $_SESSION["nombre"] = $_POST["nombre"];
                     $_SESSION["apellido"] = $_POST["apellido"];
@@ -122,7 +123,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="nombre">Nombre *</label>  
                         <div class="col-md-5">
-                            <input id="nombre" name="nombre" type="text" placeholder="Escribe tu nombre aqui..." class="form-control input-md" value="<?php if (isset($_POST['nombre'])) echo $_POST['nombre']; ?>" required autofocus>
+                            <input id="nombre" name="nombre" type="text" placeholder="Escribe tu nombre aqui..." class="form-control input-md" value="<?php if (isset($_POST['nombre'])) echo $_POST['nombre']; elseif(isset($_SESSION["nombre"])) echo $_SESSION["nombre"]; ?>" required autofocus>
                             <span class="advertencia"><?php echo $nameErr;?></span>
                         </div>
                     </div>
@@ -131,7 +132,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="apellido">Apellido *</label>  
                         <div class="col-md-5">
-                            <input id="apellido" name="apellido" type="text" placeholder="Escribe tu apellido aqui..." class="form-control input-md" value="<?php if (isset($_POST['apellido'])) echo $_POST['apellido']; ?>" required>
+                            <input id="apellido" name="apellido" type="text" placeholder="Escribe tu apellido aqui..." class="form-control input-md" value="<?php if (isset($_POST['apellido'])) echo $_POST['apellido']; elseif(isset($_SESSION["apellido"])) echo $_SESSION["apellido"];?>" required>
                             <span class="advertencia"><?php echo $apellidoErr;?></span>
                         </div>
                     </div>
@@ -139,7 +140,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="fechaNacimiento">Fecha de nacimiento *</label>
                         <div class="col-md-5">
-                            <input id="fechaNac" name="fechaNac" type="date" placeholder="Formato: dd/mm/yy" class="form-control input-md" value="<?php if (isset($_POST['fechaNac'])) echo $_POST['fechaNac']; ?>" required>
+                            <input id="fechaNac" name="fechaNac" type="date" placeholder="Formato: dd/mm/yy" class="form-control input-md" value="<?php if (isset($_POST['fechaNac'])) echo $_POST['fechaNac']; elseif(isset($_SESSION["fechaNac"])) echo $_SESSION["fechaNac"];?>" required>
                             <span class="advertencia"><?php echo $fechaNacErr;?></span>
                         </div>
                     </div>
@@ -148,7 +149,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="dni">DNI *</label>  
                         <div class="col-md-5">
-                            <input id="dni" name="dni" type="number" placeholder="Escribe tu DNI aqui sin utilizar puntos. Por ej: 12345678" class="form-control input-md" value="<?php if (isset($_POST['dni'])) echo $_POST['dni']; ?>" required>
+                            <input id="dni" name="dni" type="number" placeholder="Escribe tu DNI aqui sin utilizar puntos. Por ej: 12345678" class="form-control input-md" value="<?php if (isset($_POST['dni'])) echo $_POST['dni']; elseif(isset($_SESSION["dni"])) echo $_SESSION["dni"];?>" required>
                             <span class="advertencia"><?php echo $dniErr;?></span>
                         </div>
                     </div>
@@ -184,10 +185,22 @@
                         <div class="col-md-5">
                             <?php
                                 echo "<select class='form-control'  id='pais' name='pais' required onchange='obtener_provincias(this.value)'>";
-                
-                                echo "<option value='' selected='selected' > Elige uno</option>";
-                                while($fila = mysql_fetch_array($result_query_pais)){
-                                    echo "<option value='".$fila['code']."'>".$fila['nombre']."</option>";
+                                if(isset($_SESSION["pais"])){
+                                    while($fila = mysql_fetch_array($result_query_pais)){
+                                    if($fila['code'] == $_SESSION["pais"]){
+                                        echo "<option value='".$fila['code']."' selected>".$fila['nombre']."</option>";
+                                        $codep = $fila['code'];
+                                    }
+                                    else{
+                                        echo "<option value='".$fila['code']."'>".$fila['nombre']."</option>";
+                                        }
+                                    }
+                                }
+                                else {
+                                    echo "<option value='' selected='selected' > Elige uno</option>";
+                                    while($fila = mysql_fetch_array($result_query_pais)){
+                                        echo "<option value='".$fila['code']."'>".$fila['nombre']."</option>";
+                                    }
                                 }
                                 echo "</select>";
                             ?>
@@ -195,12 +208,29 @@
                         </div>
                     </div>
 
+                    <?php   // ----CONSULTA DE PROVINCIAS
+                        $dbc = @mysql_connect('localhost','root','');
+                        mysql_select_db('bestnid',$dbc);       
+                        $query_provincia = "select * from provincia where codep='".$codep."'";
+                        $result_query_provincia = mysql_query($query_provincia);   
+                    ?>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="pcia">Provincia *</label>  
                         <div class="col-md-5">
                             <?php
                                 echo "<select class='form-control'  id='provincia' name='provincia' required>";
-                                echo"<option value='' selected='selected'> Elige uno</option>";
+                                if (isset($_SESSION["provincia"])){
+                                    while($fila = mysql_fetch_array($result_query_provincia)){
+                                        if($fila['provincia_id'] == $_SESSION["provincia"]){
+                                            echo "<option value='".$fila['provincia_id']."' selected>".$fila['nombre']."</option>";
+                                        }else{
+                                            echo "<option value='".$fila['provincia_id']."'>".$fila['nombre']."</option>";
+                                        }
+                                    }
+                                }
+                                else{
+                                    echo"<option value='' selected='selected'> Elige uno</option>";
+                                }                                
                                 echo "</select>";
                             ?>
                             <span class="advertencia"><?php echo $pciaErr;?></span>
@@ -210,7 +240,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="localidad">Localidad *</label>  
                         <div class="col-md-5">
-                            <input id="localidad" name="localidad" type="text" placeholder="Escribe tu localidad aqui. Por ej: La Plata" class="form-control input-md" value="<?php if (isset($_POST['localidad'])) echo $_POST['localidad']; ?>" required>
+                            <input id="localidad" name="localidad" type="text" placeholder="Escribe tu localidad aqui. Por ej: La Plata" class="form-control input-md" value="<?php if (isset($_POST['localidad'])) echo $_POST['localidad']; elseif(isset($_SESSION["localidad"])) echo $_SESSION["localidad"]; ?>" required>
                             <span class="advertencia"><?php echo $localidadErr;?></span>
                         </div>
                     </div>
@@ -219,7 +249,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="calle">Calle *</label>  
                         <div class="col-md-5">
-                            <input id="calle" name="calle" type="text" placeholder="Escribe tu calle aqui..." class="form-control input-md" value="<?php if (isset($_POST['calle'])) echo $_POST['calle']; ?>" required>
+                            <input id="calle" name="calle" type="text" placeholder="Escribe tu calle aqui..." class="form-control input-md" value="<?php if (isset($_POST['calle'])) echo $_POST['calle']; elseif(isset($_SESSION["calle"])) echo $_SESSION["calle"]; ?>" required>
                             <span class="advertencia"><?php echo $calleErr;?></span>
                         </div>
                     </div>
@@ -228,7 +258,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="numCalle">Numero *</label>  
                         <div class="col-md-5">
-                            <input id="numCalle" name="numCalle" type="number" placeholder="Escribe tu numero aqui..." class="form-control input-md" value="<?php if (isset($_POST['numCalle'])) echo $_POST['numCalle']; ?>" required>
+                            <input id="numCalle" name="numCalle" type="number" placeholder="Escribe tu numero aqui..." class="form-control input-md" value="<?php if (isset($_POST['numCalle'])) echo $_POST['numCalle']; elseif(isset($_SESSION["numCalle"])) echo $_SESSION["numCalle"]; ?>" required>
     
                         </div>
                     </div>
@@ -237,7 +267,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="dpto">Departamento</label>  
                         <div class="col-md-5">
-                            <input id="dpto" name="dpto" type="text" placeholder="Escribe tu departamento aqui..." class="form-control input-md" value="<?php if (isset($_POST['dpto'])) echo $_POST['dpto']; ?>">
+                            <input id="dpto" name="dpto" type="text" placeholder="Escribe tu departamento aqui..." class="form-control input-md" value="<?php if (isset($_POST['dpto'])) echo $_POST['dpto']; elseif(isset($_SESSION["dpto"])) echo $_SESSION["dpto"]; ?>">
                             <span class="advertencia"><?php echo $departamentoErr;?></span>
                         </div>
                     </div>
@@ -246,7 +276,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="piso">Piso</label>  
                         <div class="col-md-5">
-                            <input id="piso" name="piso" type="number" placeholder="Escribe tu piso aqui..." class="form-control input-md" value="<?php if (isset($_POST['piso'])) echo $_POST['piso']; ?>" >
+                            <input id="piso" name="piso" type="number" placeholder="Escribe tu piso aqui..." class="form-control input-md" value="<?php if (isset($_POST['piso'])) echo $_POST['piso']; elseif(isset($_SESSION["piso"])) echo $_SESSION["piso"]; ?>" >
     
                         </div>
                     </div>
@@ -255,7 +285,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="mail">Email *</label>  
                         <div class="col-md-5">
-                            <input id="mail" name="email1" type="email" placeholder="Escribe tu e-mail aqui de la forma: miemail@correo.com" class="form-control input-md" value="<?php if (isset($_POST['email1'])) echo $_POST['email1']; ?>" required>
+                            <input id="mail" name="email1" type="email" placeholder="Escribe tu e-mail aqui de la forma: miemail@correo.com" class="form-control input-md" value="<?php if (isset($_POST['email1'])) echo $_POST['email1']; elseif(isset($_SESSION["email"])) echo $_SESSION["email"]; ?>" required>
                             <span class="advertencia"><?php echo $emailErr;?></span>
                         </div>
                     </div>
@@ -264,7 +294,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="email2">Repetir email *</label>  
                         <div class="col-md-5">
-                            <input id="email2" name="email2" type="email" placeholder="Escribe de nuevo tu e-mail aqui..." class="form-control input-md" value="<?php if (isset($_POST['email2'])) echo $_POST['email2']; ?>" required>
+                            <input id="email2" name="email2" type="email" placeholder="Escribe de nuevo tu e-mail aqui..." class="form-control input-md" value="<?php if (isset($_POST['email2'])) echo $_POST['email2']; elseif(isset($_SESSION["email"])) echo $_SESSION["email"]; ?>" required>
     
                         </div>
                     </div>
@@ -273,7 +303,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="password1">Contraseña *</label>
                         <div class="col-md-5">
-                            <input id="password1" name="password1" type="password" placeholder="Escribe tu contraseña, puedes utilizar letras y números" class="form-control input-md" value="<?php if (isset($_POST['password1'])) echo $_POST['password1']; ?>" required>
+                            <input id="password1" name="password1" type="password" placeholder="Escribe tu contraseña, puedes utilizar letras y números" class="form-control input-md" value="<?php if (isset($_POST['password1'])) echo $_POST['password1']; elseif (isset($_SESSION["password"])) echo $_SESSION["password"]; ?>" required>
                             <span class="advertencia"><?php echo $passErr;?></span>
                         </div>
                     </div>
@@ -282,7 +312,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="password2">Repetir contraseña *</label>
                         <div class="col-md-5">
-                            <input id="password2" name="password2" type="password" placeholder="Escribe de nuevo tu contraseña..." class="form-control input-md" value="<?php if (isset($_POST['password2'])) echo $_POST['password2']; ?>" required>    
+                            <input id="password2" name="password2" type="password" placeholder="Escribe de nuevo tu contraseña..." class="form-control input-md" value="<?php if (isset($_POST['password2'])) echo $_POST['password2']; elseif (isset($_SESSION["password"])) echo $_SESSION["password"]; ?>" required>    
                         </div>
                     </div>
                     <br>

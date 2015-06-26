@@ -14,7 +14,7 @@
 		<div class="form-group">
 			<label class="col-lg-2 control-label" for="nombre">Nombre: </label>
 			<div class="col-lg-10">
-				<input type="text" name="nombreCategoria" class="form-control" placeholder="Ingrese el nombre de la categoria">
+				<input type="text" name="nombreCategoria" class="form-control" placeholder="Ingrese el nombre de la categoria" required>
 			</div>
 		</div>
 		<br>

@@ -48,8 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 }
 ?>
-
-<div class="col-md-8">
+<div class="col-sm-1">
+</div>
+<div class="col-md-9">
 	<form class="form-horizontal" style="padding-top: 1em" method="POST" action="<?php echo $_SERVER["PHP_SELF"];?>">
 
 	<div class="col-sm-1"><h5>Buscar por:</h5></div>
@@ -64,9 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	 <div class="col-sm-2"><span class="input-group-btn"><button class="btn btn-default" type="submit">Buscar</button></span></div>
 	  <span class="advertencia"><?php echo $error;?></span>
 </div>
+	<div class="col-sm-1">
+</div>
   	<div class="col-sm-7">
   	<div class="row">
-	
+	<br><br>
 	<table class="table table-hover">
     <thead>
       <tr>

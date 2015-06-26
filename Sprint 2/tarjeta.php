@@ -3,7 +3,6 @@
         session_start();
         $formValid = 1; 
         $codSegErr = $numTarjetaErr = $nombreTitularErr = $apellidoTitularErr = $vencimientoErr = "";
-        
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $numTarjeta = test_input($_POST["numTarjeta"]);

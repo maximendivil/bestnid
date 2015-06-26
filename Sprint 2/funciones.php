@@ -497,7 +497,7 @@ function buscarRegistradosEntreFechas($fechaInicial,$fechaFinal){
 
 	$link = Database::connect();
 
-	$resultado = mysqli_query($link,"SELECT * FROM registrado r INNER JOIN usuario u on (r.email = u.email) WHERE u.tipo=0 and '$fechaInicial' <= fechaAlta and fechaAlta <= '$fechaFinal'")or die("Fallo al buscar usuarios registrados entre dos fechas");
+	$resultado = mysqli_query($link,"SELECT * FROM registrado r INNER JOIN usuario u on (r.email = u.email) WHERE u.tipo=0 and '$fechaInicial' <= fechaAlta and fechaAlta <= '$fechaFinal' ORDER BY fechaAlta DESC")or die("Fallo al buscar usuarios registrados entre dos fechas");
 	$array = array();
 	while ($rows = mysqli_fetch_assoc($resultado)){
 		array_push($array,$rows);
@@ -513,7 +513,7 @@ function buscarPublicacionesEntreFechas($fechaInicial,$fechaFinal){
 
 	$link = Database::connect();
 
-	$resultado = mysqli_query($link,"SELECT * FROM publicacion WHERE '$fechaInicial' <= fechaCreacion and fechaCreacion <= '$fechaFinal'")or die("Fallo al buscar publicaciones entre dos fechas");
+	$resultado = mysqli_query($link,"SELECT * FROM publicacion WHERE '$fechaInicial' <= fechaCreacion and fechaCreacion <= '$fechaFinal' ORDER BY fechaCreacion DESC")or die("Fallo al buscar publicaciones entre dos fechas");
 	$array = array();
 	while ($rows = mysqli_fetch_assoc($resultado)){
 		array_push($array,$rows);
@@ -528,7 +528,7 @@ function buscarTodasLasPublicaciones(){
 
 	$link = Database::connect();
 
-	$resultado = mysqli_query($link,"SELECT * FROM publicacion")or die("Fallo al buscar publicaciones");
+	$resultado = mysqli_query($link,"SELECT * FROM publicacion ORDER BY fechaCreacion DESC")or die("Fallo al buscar publicaciones");
 	$array = array();
 	while ($rows = mysqli_fetch_assoc($resultado)){
 		array_push($array,$rows);
