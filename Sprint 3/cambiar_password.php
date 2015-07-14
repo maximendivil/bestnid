@@ -1,7 +1,7 @@
 <?php 
-session_start();
-include("funciones.php");
-include("header.php") ; 
+//session_start();
+//include("funciones.php");
+//include("header.php") ; 
 include("cpanel_menu.php");
 
 if(!isset($_SESSION['usuario'])){

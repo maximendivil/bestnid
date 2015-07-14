@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-07-2015 a las 01:20:06
+-- Tiempo de generación: 15-07-2015 a las 00:04:38
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -234,21 +234,22 @@ CREATE TABLE IF NOT EXISTS `oferta` (
   `posibleGanadora` int(1) NOT NULL DEFAULT '0',
   `ganadora` int(1) NOT NULL DEFAULT '0',
   `idRegistrado` varchar(50) NOT NULL,
-  `idPublicacion` int(4) NOT NULL
+  `idPublicacion` int(4) NOT NULL,
+  `visto` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `oferta`
 --
 
-INSERT INTO `oferta` (`idOferta`, `motivo`, `monto`, `fechaRealizacion`, `posibleGanadora`, `ganadora`, `idRegistrado`, `idPublicacion`) VALUES
-(5, 'Me gustaria tener esta notebook porque quiero viciar a los jueguitos todo el dia y soy pobre.', 500, '2015-06-13', 1, 0, 'aserena92@gmail.com', 3),
-(6, 'no tengo pc', 12, '2015-06-15', -1, 0, 'a@a.com', 3),
-(7, 'alta yantas', 12, '2015-06-23', 0, 1, 'a@a.com', 4),
-(8, 'La necesito para jugar al pokemon', 1000000, '2015-06-25', 0, 1, 'pokemon@gmail.com', 4),
-(9, 'Es mi maquila ladron. Devolvela', 120, '2015-06-25', 0, 0, 'eze87lp@gmail.com', 4),
-(10, 'niphbphp', 123, '2015-06-26', 0, 0, 'a@a.com', 9),
-(11, 'tengo mucho hambre, no como hace 2 dias', 5, '2015-07-13', 0, 0, 'maximendivil22@gmail.com', 9);
+INSERT INTO `oferta` (`idOferta`, `motivo`, `monto`, `fechaRealizacion`, `posibleGanadora`, `ganadora`, `idRegistrado`, `idPublicacion`, `visto`) VALUES
+(5, 'Me gustaria tener esta notebook porque quiero viciar a los jueguitos todo el dia y soy pobre.', 500, '2015-06-13', 1, 0, 'aserena92@gmail.com', 3, 0),
+(6, 'no tengo pc', 12, '2015-06-15', -1, 0, 'a@a.com', 3, 0),
+(7, 'alta yantas', 12, '2015-06-23', 0, 0, 'a@a.com', 4, 0),
+(8, 'La necesito para jugar al pokemon', 1000000, '2015-06-25', 0, 1, 'pokemon@gmail.com', 4, 0),
+(9, 'Es mi maquila ladron. Devolvela', 120, '2015-06-25', 0, 0, 'eze87lp@gmail.com', 4, 0),
+(10, 'niphbphp', 123, '2015-06-26', 0, 0, 'a@a.com', 9, 0),
+(11, 'tengo mucho hambre, no como hace 2 dias', 5, '2015-07-13', 0, 0, 'maximendivil22@gmail.com', 9, 0);
 
 -- --------------------------------------------------------
 

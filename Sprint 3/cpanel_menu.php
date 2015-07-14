@@ -1,3 +1,8 @@
+<?php
+	session_start();
+	include("header.php");
+	include("funciones.php");
+?>
 
 
 <div class="container col-md-12" style="float: left">
@@ -16,8 +21,14 @@
 	   <li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Compras <span class="caret"></span></a>
 			<ul class="dropdown-menu">
-            <li><a href="ver_ofertas.php">Ofertas realizadas</a></li>
-            <li><a href="#">Finalizadas</a></li>
+            <li><a href="ver_ofertas.php">Ofertas realizadas
+            <?php            
+            	$ganador = buscarOfertasGanadoras($_SESSION["usuario"]);
+            	if ($ganador > 0){
+            		echo "<span class='badge pull-right'>".$ganador."</span>";
+            	}
+            ?>
+            </a></li>
             <li><a href="#">Preguntas realizadas</a></li>                        
 			</ul>
         </li>

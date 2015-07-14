@@ -361,6 +361,29 @@ function cargarImagen($idPublicacion,$idImagen){
 	Database::disconnect();
 }
 
+function buscarOfertasGanadoras($email){
+
+	$link = Database::connect();
+
+	$resultado = mysqli_query($link,"SELECT count(idOferta) FROM oferta WHERE idRegistrado = '$email' and ganadora=1 and visto=0")or die("Fallo al buscar ofertas ganadoras");
+
+	$cant = mysqli_fetch_row($resultado);
+
+	Database::disconnect();
+
+	return $cant[0];
+
+}
+
+function verOferta($idOferta){
+
+	$link = Database::connect();
+
+	mysqli_query($link,"UPDATE oferta SET visto=1 WHERE idOferta='$idOferta'");
+
+	Database::disconnect();
+}
+
 function cargarImagenes($img,$img2,$img3,$idPublicacion){
 
 	$link = Database::connect();

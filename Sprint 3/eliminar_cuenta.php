@@ -1,6 +1,6 @@
 <?php 
-session_start();
-include("header.php") ; 
+//session_start();
+//include("header.php") ; 
 include("cpanel_menu.php");
 
 if(!isset($_SESSION['usuario'])){

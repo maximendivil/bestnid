@@ -1,9 +1,9 @@
 <?php
 
-session_start();
-include("header.php") ; 
+//session_start();
+//include("header.php") ; 
 include("cpanel_menu.php");
-include("funciones.php");
+//include("funciones.php");
 
 if(!isset($_SESSION['usuario'])){
     header("location: index.php");
